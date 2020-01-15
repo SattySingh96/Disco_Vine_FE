@@ -2,7 +2,7 @@ import React, {Fragment, Component} from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-export default class imageThumbnail extends Component {
+export default class ImageThumbnail extends Component {
   state = {
     filePath: {
       data: '',
@@ -50,12 +50,12 @@ export default class imageThumbnail extends Component {
   }
 }
 const styles = StyleSheet.create({
-  images: {
-    width: 200,
-    height: 250,
+  imageCard: {
+    width: 150,
+    height: 150,
     borderWidth: 1,
     borderRadius: 19,
     borderWidth: 1,
-    marginHorizontal: 70,
+    margin: 20,
   },
 });
