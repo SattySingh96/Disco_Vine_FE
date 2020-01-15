@@ -25,12 +25,27 @@ const screens = {
     screen: Gallery,
     navigationOptions: {
       tabBarLabel: 'Gallery',
+      tabBarIcon: ({tintColor}) => (
+        <View>
+          <Icon
+            style={[{color: tintColor}]}
+            size={25}
+            name={'md-photos'}></Icon>
+        </View>
+      ),
+      tabBarColor: '#F39C11',
     },
   },
   slideShow: {
     screen: SlideShow,
     navigationOptions: {
       tabBarLabel: 'Clips',
+      tabBarIcon: ({tintColor}) => (
+        <View>
+          <Icon style={[{color: tintColor}]} size={25} name={'md-film'}></Icon>
+        </View>
+      ),
+      tabBarColor: '#22B573',
     },
   },
 };
