@@ -5,7 +5,7 @@ export default class home extends Component {
   render() {
     return (
       <View>
-        <Text> Galery </Text>
+        <Text> Gallery</Text>
       </View>
     );
   }
