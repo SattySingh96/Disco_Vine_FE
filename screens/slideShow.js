@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Video from 'react-native-video';
+import {LogLevel, RNFFmpeg} from 'react-native-ffmpeg';
+
+RNFFmpeg.execute('-i file1.mp4 -c:v mpeg4 file2.mp4').then(result =>
+  console.log('FFmpeg process exited with rc ' + result.rc),
+);
 
 export default class slideshow extends Component {
   render() {
