@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, Dimensions, Button } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Dimensions, Button } from 'react-native';
 import ImageSequence from 'react-native-image-sequence'
 import Icon from 'react-native-vector-icons/Ionicons'
+import SoundPlaya from '../components/SoundPlaya';
 
+const testSounds = [
+  {
+    url:
+      'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/191478__urupin__ping-ping.wav',
+    pose: 'TPose',
+  },
+  {
+    url:
+      'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/376523__djfroyd__mystical-sound-sample.wav',
+    pose: 'Dab',
+  },
+];
 
 const images = [
   require('/home/satty/Desktop/Disco_Vine_FE/assets/Images/002.png'),
@@ -57,11 +70,14 @@ export default class SlideShow extends Component {
 
   render() {
     return (
+
       <View style={{}}>
+      <SoundPlaya soundsToLoad={testSounds} />
         <TouchableOpacity style={styles.opacity} onPress={this.handlePlay} onPressIn={this.handleReplay}>
           {this.renderAnimation()}
         </TouchableOpacity>
       </View >
+
     );
   }
 }
