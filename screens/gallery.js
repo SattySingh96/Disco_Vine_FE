@@ -8,9 +8,8 @@ import {
   ScrollView,
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
-import VideoConverter from '../components/videoConverter';
 
-export default class home extends Component {
+export default class Gallery extends Component {
   state = {
     images: [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }, { key: 5 }, { key: 6 }],
   };

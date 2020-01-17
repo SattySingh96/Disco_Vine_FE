@@ -42,7 +42,7 @@ export default class ImageThumbnail extends Component {
     } else
       return (
         <Image
-          source={require('../assets/gallery-placeholder.jpg')}
+          source={require('../assets/Images/gallery-placeholder.jpg')}
           style={styles.imageCard}
         />
       );
@@ -52,7 +52,6 @@ export default class ImageThumbnail extends Component {
     return (
       <TouchableOpacity style={styles.opacity} onPress={this.chooseImage} disabled={this.state.pressed}>
         {this.renderFileData()}
-
       </TouchableOpacity>
     );
   }
