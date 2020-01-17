@@ -27,6 +27,7 @@ export default class ImageThumbnail extends Component {
         fileData: response.data,
         fileUri: response.uri,
       });
+      console.log(this.state.fileData)
     });
   };
 

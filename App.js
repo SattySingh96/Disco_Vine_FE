@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Navigator from './routes/screenStack';
-import {View} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 export default class App extends Component {
@@ -9,9 +9,9 @@ export default class App extends Component {
     // After having done stuff (such as async tasks) hide the splash screen
     SplashScreen.hide();
   }
-  
+
   render() {
-    return <Navigator style={styles.Navigator}/>;
+    return <Navigator style={styles.Navigator} />;
   }
 }
 
