@@ -1,7 +1,7 @@
 import React from 'react';
-import {createAppContainer} from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-import {View} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Home from '../screens/home';
@@ -9,26 +9,26 @@ import Gallery from '../screens/gallery';
 import SlideShow from '../screens/slideShow';
 
 const screens = {
-  home: {
+  Home: {
     screen: Home,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <View>
-          <Icon style={[{color: tintColor}]} size={25} name={'md-home'}></Icon>
+          <Icon style={[{ color: tintColor }]} size={25} name={'md-home'}></Icon>
         </View>
       ),
       tabBarColor: '#E74C3B',
     },
   },
-  gallery: {
+  Gallery: {
     screen: Gallery,
     navigationOptions: {
       tabBarLabel: 'Gallery',
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <View>
           <Icon
-            style={[{color: tintColor}]}
+            style={[{ color: tintColor }]}
             size={25}
             name={'md-photos'}></Icon>
         </View>
@@ -36,13 +36,13 @@ const screens = {
       tabBarColor: '#F39C11',
     },
   },
-  slideShow: {
+  SlideShow: {
     screen: SlideShow,
     navigationOptions: {
       tabBarLabel: 'Clips',
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <View>
-          <Icon style={[{color: tintColor}]} size={25} name={'md-film'}></Icon>
+          <Icon style={[{ color: tintColor }]} size={25} name={'md-film'}></Icon>
         </View>
       ),
       tabBarColor: '#22B573',
@@ -51,11 +51,11 @@ const screens = {
 };
 
 const bottomTab = createMaterialBottomTabNavigator(screens, {
-  initialRouteName: 'home',
+  initialRouteName: 'Home',
   activeColor: '#FFFFFF',
   inactiveColor: '#FFFFFF',
   backBehavior: 'order',
-  barStyle: {backgroundColor: '#FFFFFF'},
+  barStyle: { backgroundColor: '#FFFFFF' },
   shifting: true,
 });
 

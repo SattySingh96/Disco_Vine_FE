@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Text,
   View,
@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
 
-export default class home extends Component {
+export default class Gallery extends Component {
   state = {
-    images: [{key: 1}, {key: 2}, {key: 3}, {key: 4}, {key: 5}, {key: 6}],
+    images: [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }, { key: 5 }, { key: 6 }],
   };
   render() {
     return (
@@ -29,10 +29,12 @@ export default class home extends Component {
               <ImageThumbnail />
               <ImageThumbnail />
               <ImageThumbnail />
+              <ImageThumbnail />
+              <ImageThumbnail />
             </ScrollView>
           </View>
         </View>
-      </Fragment>
+      </Fragment >
     );
   }
 }
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     backgroundColor: 'pink',
     marginHorizontal: 20,
+    height: 100
   },
   horizontalScrollImageView: {
     margin: 10,
@@ -49,16 +52,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     borderColor: 'black',
-    borderWidth: 1,
-    height: Dimensions.get('screen').height - 20,
-    width: Dimensions.get('screen').width,
+    borderWidth: 1
   },
   ImageSections: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column-reverse',
     paddingHorizontal: 8,
     paddingVertical: 8,
     justifyContent: 'center',
+    alignContent: 'flex-start',
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
+    backgroundColor: '#E0E0E0'
   },
   btnParentSection: {
     alignItems: 'center',

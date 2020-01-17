@@ -9,8 +9,14 @@ export default class App extends Component {
     // After having done stuff (such as async tasks) hide the splash screen
     SplashScreen.hide();
   }
-
+  
   render() {
-    return <Navigator />;
+    return <Navigator style={styles.Navigator}/>;
   }
 }
+
+const styles = StyleSheet.create({
+  Navigator: {
+    flex: 1
+  }
+})

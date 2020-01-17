@@ -1,8 +1,9 @@
-import React, {Fragment, Component} from 'react';
-import {StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, { Fragment, Component } from 'react';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 export default class ImageThumbnail extends Component {
+
   state = {
     filePath: {
       data: '',
@@ -11,13 +12,16 @@ export default class ImageThumbnail extends Component {
     fileData: '',
     fileUri: '',
   };
+
+
+
   chooseImage = () => {
     const options = {
       title: '',
-      storageOptions: {skipBackUp: true, path: 'images'},
+      storageOptions: { skipBackUp: true, path: 'images' },
     };
     ImagePicker.showImagePicker(options, response => {
-      const source = {uri: response.uri};
+      const source = { uri: response.uri };
       this.setState({
         filePath: response,
         fileData: response.data,
@@ -25,25 +29,28 @@ export default class ImageThumbnail extends Component {
       });
     });
   };
+
+
   renderFileData() {
     if (this.state.fileData) {
       return (
         <Image
-          source={{uri: 'data:image/jpeg;base64,' + this.state.fileData}}
+          source={{ uri: 'data:image/jpeg;base64,' + this.state.fileData }}
           style={styles.imageCard}
         />
       );
     } else
       return (
         <Image
-          source={require('../assets/gallery-placeholder.jpg')}
+          source={require('../assets/Images/gallery-placeholder.jpg')}
           style={styles.imageCard}
         />
       );
   }
+
   render() {
     return (
-      <TouchableOpacity onPress={this.chooseImage}>
+      <TouchableOpacity style={styles.opacity} onPress={this.chooseImage} disabled={this.state.pressed}>
         {this.renderFileData()}
       </TouchableOpacity>
     );
@@ -53,9 +60,11 @@ const styles = StyleSheet.create({
   imageCard: {
     width: 150,
     height: 150,
-    borderWidth: 1,
     borderRadius: 19,
-    borderWidth: 1,
-    margin: 20,
   },
+  opacity: {
+    width: 150,
+    marginLeft: 80,
+    margin: 15
+  }
 });
