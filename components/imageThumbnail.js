@@ -1,44 +1,27 @@
-import React, { Fragment, Component } from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {Fragment, Component} from 'react';
+import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 export default class ImageThumbnail extends Component {
-
-  state = {
-    filePath: {
-      data: '',
-      uri: '',
-    },
-    fileData: '',
-    fileUri: '',
-  };
-
-
-
   chooseImage = () => {
     const options = {
       title: '',
-      storageOptions: { skipBackUp: true, path: 'images' },
+      storageOptions: {skipBackUp: true, path: 'images'},
     };
-    ImagePicker.showImagePicker(options, response => {
-      const source = { uri: response.uri };
-      this.setState({
-        filePath: response,
-        fileData: response.data,
-        fileUri: response.uri,
+    if (!this.props.selected) {
+      ImagePicker.showImagePicker(options, response => {
+        const file = {
+          data: response.data,
+          uri: response.uri,
+        };
+        this.props.onSelected(file, this.props.buttonKey);
       });
-      console.log(this.state.fileData)
-    });
+    }
   };
-
-
   renderFileData() {
-    if (this.state.fileData) {
+    if (this.props.file.data) {
       return (
-        <Image
-          source={{ uri: 'data:image/jpeg;base64,' + this.state.fileData }}
-          style={styles.imageCard}
-        />
+        <Image source={{uri: this.props.file.uri}} style={styles.imageCard} />
       );
     } else
       return (
@@ -51,7 +34,7 @@ export default class ImageThumbnail extends Component {
 
   render() {
     return (
-      <TouchableOpacity style={styles.opacity} onPress={this.chooseImage} disabled={this.state.pressed}>
+      <TouchableOpacity style={styles.opacity} onPress={this.chooseImage}>
         {this.renderFileData()}
       </TouchableOpacity>
     );
@@ -59,13 +42,13 @@ export default class ImageThumbnail extends Component {
 }
 const styles = StyleSheet.create({
   imageCard: {
-    width: 150,
-    height: 150,
-    borderRadius: 19,
+    width: 100,
+    height: 100,
+    borderRadius: 5,
   },
   opacity: {
-    width: 150,
-    marginLeft: 80,
-    margin: 15
-  }
+    width: 100,
+    marginLeft: 10,
+    margin: 15,
+  },
 });
