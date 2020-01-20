@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default class home extends Component {
+export default class Home extends Component {
+
+
   render() {
     return (
       <View style={styles.HomeContainer}>
