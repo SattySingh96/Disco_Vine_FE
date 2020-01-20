@@ -1,5 +1,5 @@
 import React, {Fragment, Component} from 'react';
-import {StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 export default class ImageThumbnail extends Component {
@@ -42,13 +42,14 @@ export default class ImageThumbnail extends Component {
 }
 const styles = StyleSheet.create({
   imageCard: {
-    width: 100,
-    height: 100,
-    borderRadius: 5,
+    width: 120,
+    height: 120,
+    borderRadius: 10,
+    height: Dimensions.get('screen').width / 3.7,
+    width: Dimensions.get('screen').width / 3.7,
   },
   opacity: {
-    width: 100,
-    marginLeft: 10,
-    margin: 15,
+    // width: 120,
+    margin: 8,
   },
 });

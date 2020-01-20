@@ -16,7 +16,6 @@ export default class Gallery extends Component {
     addToTrack: 0,
   };
   selectMedia = (fileData, buttonKey) => {
-    console.log(buttonKey);
     if (this.state.addToTrack === 0) {
       if (fileData.data) {
         this.setState(({images}) => {
@@ -43,6 +42,7 @@ export default class Gallery extends Component {
           <View style={styles.ImageSections}>
             <FlatList
               extraData={this.state.images}
+              columnWrapperStyle={styles.horizontalRow}
               numColumns={3}
               style={styles.horizontalScrollImageView}
               data={this.state.images}
@@ -69,9 +69,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     height: 100,
   },
+  horizontalRow: {flexWrap: 'wrap', justifyContent: 'flex-start'},
   horizontalScrollImageView: {
-    margin: 10,
-    paddingTop: 10,
+    marginRight: 10,
+    paddingTop: 30,
     flex: 1,
   },
   body: {
