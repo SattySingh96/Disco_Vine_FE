@@ -6,12 +6,34 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
 
-export default class home extends Component {
+export default class Gallery extends Component {
   state = {
-    images: [{key: 1}, {key: 2}, {key: 3}, {key: 4}, {key: 5}, {key: 6}],
+    images: [{key: '1', selected: false, file: {data: '', uri: ''}}],
+    addToTrack: 0,
+  };
+  selectMedia = (fileData, buttonKey) => {
+    console.log(buttonKey);
+    if (this.state.addToTrack === 0) {
+      if (fileData.data) {
+        this.setState(({images}) => {
+          const newImages = [
+            ...images,
+            {
+              key: (images.length + 1).toString(),
+              selected: false,
+              file: {data: '', uri: ''},
+            },
+          ];
+          newImages[buttonKey].selected = true;
+          newImages[buttonKey].file = fileData;
+          return {images: newImages};
+        });
+      }
+    }
   };
   render() {
     return (
@@ -19,17 +41,21 @@ export default class home extends Component {
         <StatusBar barStyle="light-content" />
         <View style={styles.body}>
           <View style={styles.ImageSections}>
-            <ScrollView
+            <FlatList
+              extraData={this.state.images}
+              numColumns={3}
               style={styles.horizontalScrollImageView}
-              showsVerticalScrollIndicator={false}>
-              <ImageThumbnail />
-              <ImageThumbnail />
-              <ImageThumbnail />
-              <ImageThumbnail />
-              <ImageThumbnail />
-              <ImageThumbnail />
-              <ImageThumbnail />
-            </ScrollView>
+              data={this.state.images}
+              renderItem={({item, index}) => (
+                <ImageThumbnail
+                  addToTrack={this.state.addToTrack}
+                  onSelected={this.selectMedia}
+                  selected={item.selected}
+                  file={item.file}
+                  buttonKey={index}
+                />
+              )}
+            />
           </View>
         </View>
       </Fragment>
@@ -41,24 +67,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     backgroundColor: 'pink',
     marginHorizontal: 20,
+    height: 100,
   },
   horizontalScrollImageView: {
     margin: 10,
+    paddingTop: 10,
+    flex: 1,
   },
   body: {
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     borderColor: 'black',
     borderWidth: 1,
-    height: Dimensions.get('screen').height - 20,
-    width: Dimensions.get('screen').width,
   },
   ImageSections: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column-reverse',
     paddingHorizontal: 8,
     paddingVertical: 8,
     justifyContent: 'center',
+    alignContent: 'flex-start',
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
+    backgroundColor: '#E0E0E0',
   },
   btnParentSection: {
     alignItems: 'center',
