@@ -75,7 +75,6 @@ export default class Gallery extends Component {
               data={this.state.images}
               renderItem={({item, index}) => (
                 <ImageThumbnail
-                  addToTrack={this.state.addToTrack}
                   onSelected={this.tapGalleryButton}
                   selected={item.selected}
                   file={item.imgFile}
