@@ -16,18 +16,23 @@ export default class ImageThumbnail extends Component {
         };
         this.props.onSelected(file, this.props.buttonKey);
       });
+    } else if (this.props.selected) {
+      this.props.onSelected(null, this.props.buttonKey);
     }
   };
   renderFileData() {
-    if (this.props.file.data) {
+    if (this.props.file.uri) {
       return (
-        <Image source={{uri: this.props.file.uri}} style={styles.imageCard} />
+        <Image
+          source={{uri: this.props.file.uri}}
+          style={this.props.imageStyle}
+        />
       );
     } else
       return (
         <Image
           source={require('../assets/Images/gallery-placeholder.jpg')}
-          style={styles.imageCard}
+          style={this.props.imageStyle}
         />
       );
   }
@@ -41,13 +46,6 @@ export default class ImageThumbnail extends Component {
   }
 }
 const styles = StyleSheet.create({
-  imageCard: {
-    width: 120,
-    height: 120,
-    borderRadius: 10,
-    height: Dimensions.get('screen').width / 3.7,
-    width: Dimensions.get('screen').width / 3.7,
-  },
   opacity: {
     // width: 120,
     margin: 8,
