@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import React, {Component} from 'react';
+import {Text, View, StyleSheet, Dimensions} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
 export default class Home extends Component {
-
-
   render() {
     return (
       <View style={styles.HomeContainer}>
         <View style={styles.ButtonContainer}>
-          <TouchableOpacity style={styles.HomeButtons} onPress={() => {
-            this.props.navigation.navigate('Gallery')
-          }}>
+          <TouchableOpacity
+            style={styles.HomeButtons}
+            onPress={() => {
+              this.props.navigation.navigate('Gallery');
+            }}>
             <Text style={styles.ButtonText}>CREATE</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.HomeButtons} onPress={() => {
-            this.props.navigation.navigate('SlideShow')
-          }}>
+          <TouchableOpacity
+            style={styles.HomeButtons}
+            onPress={() => {
+              this.props.navigation.navigate('SlideShow');
+            }}>
             <Text style={styles.ButtonText}>VIEW</Text>
           </TouchableOpacity>
         </View>
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   HomeButtons: {
     height: 70,
@@ -58,7 +59,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'sans-serif',
     fontSize: 25,
-    color: 'purple'
-  }
-
-})
+    color: 'purple',
+  },
+});
