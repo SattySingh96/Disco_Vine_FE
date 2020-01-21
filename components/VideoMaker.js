@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import ToggleButton from './ToggleButton';
 
-const VideoMaker = () => {
-  return <View style={styles.VideoMakerContainer}></View>;
-};
-
-export default VideoMaker;
-
-const styles = StyleSheet.create({
-  VideoMakerContainer: {
-    backgroundColor: 'black',
-    flex: 1,
-  },
-});
+export default class VideoMaker extends Component {
+  state = {hidden: true};
+  setHidden = () => {
+    this.setState(currentState => {
+      return {hidden: !currentState.hidden};
+    });
+  };
+  render() {
+    return (
+      <View style={{backgroundColor: 'white', flex: 1}}>
+        <ToggleButton showHide={this.setHidden} hidden={this.state.hidden} />
+        {!this.state.hidden && <Text>Hello</Text>}
+      </View>
+    );
+  }
+}
