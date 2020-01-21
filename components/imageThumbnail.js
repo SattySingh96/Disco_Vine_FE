@@ -21,8 +21,6 @@ export default class ImageThumbnail extends Component {
     };
     if (!this.props.selected) {
       ImagePicker.showImagePicker(options, response => {
-        this.props.onSelected(file, this.props.buttonKey);
-
         const file = {
           data: response.data,
           uri: response.uri,
@@ -44,12 +42,14 @@ export default class ImageThumbnail extends Component {
         RNS3.put(file, options).then(s3response => {
           if (s3response.status !== 201)
             throw new Error('Failed to upload image to S3');
+          //unnecessary setState, just need to move put request to s3 into video player 'publish' functionality before removing
           this.setState({
             filePath: response,
             fileData: response.data,
             fileUri: response.uri,
             filePublicURL: s3response.body.postResponse.location,
           });
+          this.props.onSelected(file, this.props.buttonKey);
         });
       });
     }
