@@ -9,30 +9,56 @@ import {
   FlatList,
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
+import VideoMaker from '../components/VideoMaker';
 
 export default class Gallery extends Component {
   state = {
-    images: [{key: '1', selected: false, file: {data: '', uri: ''}}],
-    addToTrack: 0,
+    images: [{key: '1', selected: false, imgFile: {data: '', uri: ''}}],
+    addToTrack: null,
+    tiles: [
+      {key: '1', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '2', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '3', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '4', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '5', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '6', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '7', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '8', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '9', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+      {key: '10', imgFile: {data: '', uri: ''}, sound: {url: ''}},
+    ],
   };
-  selectMedia = (fileData, buttonKey) => {
-    console.log(buttonKey);
-    if (this.state.addToTrack === 0) {
-      if (fileData.data) {
+
+  fetchToSlideShow = destinationKey => {
+    this.setState({addToTrack: [destinationKey]});
+  };
+  tapGalleryButton = (file, buttonKey) => {
+    if (this.state.addToTrack === null) {
+      if (file.uri) {
         this.setState(({images}) => {
           const newImages = [
             ...images,
             {
               key: (images.length + 1).toString(),
               selected: false,
-              file: {data: '', uri: ''},
+              imgFile: {data: '', uri: ''},
             },
           ];
           newImages[buttonKey].selected = true;
-          newImages[buttonKey].file = fileData;
+          newImages[buttonKey].imgFile = file;
           return {images: newImages};
         });
       }
+    } else {
+      this.setState(
+        ({tiles, images}) => {
+          const newTiles = [...tiles];
+          newTiles[this.state.addToTrack].imgFile = images[buttonKey].imgFile;
+          return {tiles: newTiles};
+        },
+        () => {},
+      );
+      this.setState({addToTrack: null});
     }
   };
   render() {
@@ -43,18 +69,24 @@ export default class Gallery extends Component {
           <View style={styles.ImageSections}>
             <FlatList
               extraData={this.state.images}
+              columnWrapperStyle={styles.horizontalRow}
               numColumns={3}
               style={styles.horizontalScrollImageView}
               data={this.state.images}
               renderItem={({item, index}) => (
                 <ImageThumbnail
-                  // addToTrack={this.state.addToTrack}
-                  onSelected={this.selectMedia}
+                  onSelected={this.tapGalleryButton}
                   selected={item.selected}
-                  file={item.file}
+                  file={item.imgFile}
                   buttonKey={index}
+                  imageStyle={styles.imageCard}
                 />
               )}
+            />
+            <VideoMaker
+              tiles={this.state.tiles}
+              fetchToSlideShow={this.fetchToSlideShow}
+              style={{alignContent: 'flex-start'}}
             />
           </View>
         </View>
@@ -69,10 +101,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     height: 100,
   },
+  horizontalRow: {flexWrap: 'wrap', justifyContent: 'flex-start'},
   horizontalScrollImageView: {
-    margin: 10,
-    paddingTop: 10,
+    marginRight: 10,
+    paddingTop: 30,
     flex: 1,
+  },
+  imageCard: {
+    width: 120,
+    height: 120,
+    borderRadius: 10,
+    height: Dimensions.get('screen').width / 3.7,
+    width: Dimensions.get('screen').width / 3.7,
   },
   body: {
     backgroundColor: '#FFFFFF',
@@ -82,11 +122,11 @@ const styles = StyleSheet.create({
   },
   ImageSections: {
     display: 'flex',
-    flexDirection: 'column-reverse',
+    flexDirection: 'column',
     paddingHorizontal: 8,
     paddingVertical: 8,
-    justifyContent: 'center',
-    alignContent: 'flex-start',
+    // justifyContent: 'center',
+    // alignContent: 'flex-start',
     height: Dimensions.get('screen').height,
     width: Dimensions.get('screen').width,
     backgroundColor: '#E0E0E0',

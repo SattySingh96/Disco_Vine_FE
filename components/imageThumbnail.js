@@ -1,5 +1,5 @@
 import React, {Fragment, Component} from 'react';
-import {StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import {RNS3} from 'react-native-aws3';
 import {accessKey, secretKey} from '../AWSconfig';
@@ -52,18 +52,23 @@ export default class ImageThumbnail extends Component {
           this.props.onSelected(file, this.props.buttonKey);
         });
       });
+    } else if (this.props.selected) {
+      this.props.onSelected(null, this.props.buttonKey);
     }
   };
   renderFileData() {
-    if (this.props.file.data) {
+    if (this.props.file.uri) {
       return (
-        <Image source={{uri: this.props.file.uri}} style={styles.imageCard} />
+        <Image
+          source={{uri: this.props.file.uri}}
+          style={this.props.imageStyle}
+        />
       );
     } else
       return (
         <Image
           source={require('../assets/Images/gallery-placeholder.jpg')}
-          style={styles.imageCard}
+          style={this.props.imageStyle}
         />
       );
   }
@@ -77,14 +82,8 @@ export default class ImageThumbnail extends Component {
   }
 }
 const styles = StyleSheet.create({
-  imageCard: {
-    width: 100,
-    height: 100,
-    borderRadius: 5,
-  },
   opacity: {
-    width: 100,
-    marginLeft: 10,
-    margin: 15,
+    // width: 120,
+    margin: 8,
   },
 });
