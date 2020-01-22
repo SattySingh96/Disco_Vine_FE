@@ -144,18 +144,19 @@ export default class Gallery extends Component {
               imgFile: {data: '', uri: ''},
             },
           ];
+          const newSound = this.loadSound(soundRandomiser);
           newImages[buttonKey].selected = true;
           newImages[buttonKey].imgFile = file;
+          newImages[buttonKey].sound = newSound;
           return {images: newImages};
         });
-      } else return;
+      } else this.state.images[buttonKey].sound.play();
     } else {
       this.setState(
         ({tiles, images}) => {
           const newTiles = [...tiles];
-          const newSound = this.loadSound(soundRandomiser);
           newTiles[this.state.addToTrack].imgFile = images[buttonKey].imgFile;
-          newTiles[this.state.addToTrack].sound = newSound;
+          newTiles[this.state.addToTrack].sound = images[buttonKey].sound;
           newTiles[this.state.addToTrack].highlighted = false;
           return {tiles: newTiles};
         },
