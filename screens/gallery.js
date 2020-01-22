@@ -197,10 +197,7 @@ const styles = StyleSheet.create({
     left: 90,
     marginBottom: 5,
   },
-  VideoMaker: {
-    // flex: 1,
-    // alignContent: 'flex-start',
-  },
+  VideoMaker: {},
   buttonStyle: {
     margin: Dimensions.get('screen').width / 40,
   },
@@ -237,8 +234,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 8,
     paddingVertical: 8,
-    // justifyContent: 'center',
-    // alignContent: 'flex-start',
     height: Dimensions.get('screen').height,
     width: Dimensions.get('screen').width,
     backgroundColor: '#E0E0E0',

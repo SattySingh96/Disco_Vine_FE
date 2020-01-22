@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions, FlatList} from 'react-native';
-import ToggleButton from './ToggleButton';
 import ImageThumbnail from './imageThumbnail';
 
 export default class VideoMaker extends Component {
@@ -26,7 +25,6 @@ export default class VideoMaker extends Component {
           borderWidth: 2,
           borderColor: 'black',
         }}>
-        {/* <ToggleButton showHide={this.setHidden} hidden={this.state.hidden} /> */}
         {this.state.hidden && (
           <FlatList
             horizontal={true}
@@ -58,11 +56,7 @@ export default class VideoMaker extends Component {
 }
 
 const styles = StyleSheet.create({
-  // horizontalRow: {flexWrap: 'wrap', justifyContent: 'flex-start'},
-  horizontalScrollImageView: {
-    // marginRight: 10,
-    // paddingTop: 30,
-  },
+  horizontalScrollImageView: {},
   imageCard: {
     borderRadius: 2,
     height: Dimensions.get('screen').width / 3.3,
