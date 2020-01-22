@@ -38,7 +38,8 @@ const soundRandomiser = () => {
     'Special-K',
     'Rock',
   ];
-  return stances[Math.floor(Math.random() * Math.floor(9))];
+  console.log(stances[Math.floor(Math.random() * Math.floor(9))]);
+  return stances[Math.floor(Math.random() * Math.floor(9))].toString();
 };
 
 export default class Gallery extends Component {
@@ -116,10 +117,13 @@ export default class Gallery extends Component {
     ],
   };
   loadSound = poseName => {
+    console.dir(poseName);
+    console.dir(soundLinks[poseName]);
     const newSound = new Sound(soundLinks[poseName], undefined, error => {
       if (error) {
         console.log('failed to load the sound', error);
         alert('problem loading sounds');
+        return;
       }
     });
     return newSound;
@@ -144,7 +148,7 @@ export default class Gallery extends Component {
               imgFile: {data: '', uri: ''},
             },
           ];
-          const newSound = this.loadSound(soundRandomiser);
+          const newSound = this.loadSound(soundRandomiser());
           newImages[buttonKey].selected = true;
           newImages[buttonKey].imgFile = file;
           newImages[buttonKey].sound = newSound;
