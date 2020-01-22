@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions, FlatList} from 'react-native';
-import ToggleButton from './ToggleButton';
 import ImageThumbnail from './imageThumbnail';
 
 export default class VideoMaker extends Component {
   state = {
     hidden: true,
+    placeholder: require('../assets/Images/reel-placeholder.jpg'),
   };
 
   setHidden = () => {
@@ -13,17 +13,22 @@ export default class VideoMaker extends Component {
       return {hidden: !currentState.hidden};
     });
   };
-  clickHandler = (thing, key) => {
+  clickHandler = (unused, key) => {
     this.props.fetchToSlideShow(key);
   };
 
   render() {
     return (
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <ToggleButton showHide={this.setHidden} hidden={this.state.hidden} />
-        {!this.state.hidden && (
+      <View
+        style={{
+          backgroundColor: 'grey',
+          borderWidth: 2,
+          borderColor: 'black',
+        }}>
+        {this.state.hidden && (
           <FlatList
             horizontal={true}
+            extraData={this.props.border}
             data={this.props.tiles}
             style={styles.horizontalScrollImageView}
             renderItem={({item, index}) => (
@@ -33,6 +38,9 @@ export default class VideoMaker extends Component {
                 file={item.imgFile}
                 buttonKey={index}
                 imageStyle={styles.imageCard}
+                buttonStyle={styles.imgButton}
+                placeholder={this.state.placeholder}
+                highlighted={item.highlighted}
               />
             )}
           />
@@ -48,15 +56,15 @@ export default class VideoMaker extends Component {
 }
 
 const styles = StyleSheet.create({
-  horizontalRow: {flexWrap: 'wrap', justifyContent: 'flex-start'},
-  horizontalScrollImageView: {
-    marginRight: 10,
-    paddingTop: 30,
-    flex: 1,
-  },
+  horizontalScrollImageView: {},
   imageCard: {
-    borderRadius: 10,
-    height: Dimensions.get('screen').width / 3.7,
-    width: Dimensions.get('screen').width / 3.7,
+    borderRadius: 2,
+    height: Dimensions.get('screen').width / 3.3,
+    width: Dimensions.get('screen').width / 3.3,
+  },
+  imgButton: {
+    margin: 2,
+    borderWidth: 5,
+    borderColor: '#E0E0E0',
   },
 });
