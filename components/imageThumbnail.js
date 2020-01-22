@@ -1,17 +1,8 @@
-import React, {Fragment, Component} from 'react';
-import {StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
+import React, {Component} from 'react';
+import {Image, TouchableOpacity} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 export default class ImageThumbnail extends Component {
-  state = {
-    filePath: {
-      data: '',
-      uri: '',
-    },
-    fileData: '',
-    fileUri: '',
-    filePublicURL: '',
-  };
   chooseImage = () => {
     const options = {
       title: '',
@@ -23,15 +14,7 @@ export default class ImageThumbnail extends Component {
         const file = {
           data: response.data,
           uri: response.uri,
-          name: response.uri,
-          method: 'POST',
-          path: '../assets/Images/',
-          type: response.type,
-          notification: {
-            enabled: true,
-          },
         };
-
         this.props.onSelected(file, this.props.buttonKey);
       });
     } else if (this.props.selected) {
@@ -48,24 +31,21 @@ export default class ImageThumbnail extends Component {
       );
     } else
       return (
-        <Image
-          source={require('../assets/Images/gallery-placeholder.jpg')}
-          style={this.props.imageStyle}
-        />
+        <Image source={this.props.placeholder} style={this.props.imageStyle} />
       );
   }
 
   render() {
+    let highlighted = {
+      ...this.props.buttonStyle,
+      borderWidth: 5,
+      borderColor: 'red',
+    };
+    if (!this.props.highlighted) highlighted = {...this.props.buttonStyle};
     return (
-      <TouchableOpacity style={styles.opacity} onPress={this.chooseImage}>
+      <TouchableOpacity style={highlighted} onPress={this.chooseImage}>
         {this.renderFileData()}
       </TouchableOpacity>
     );
   }
 }
-const styles = StyleSheet.create({
-  opacity: {
-    // width: 120,
-    margin: 8,
-  },
-});
