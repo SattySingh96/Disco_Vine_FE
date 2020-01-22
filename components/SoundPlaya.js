@@ -62,7 +62,6 @@ export default class SoundPlaya extends Component {
       );
     } else {
       return <Image source={this.props.testImages[0]}></Image>;
-      //</Image>
     }
   };
 

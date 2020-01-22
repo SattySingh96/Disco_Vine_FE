@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlaya from '../components/SoundPlaya';
 import {RNS3} from 'react-native-aws3';
 import {accessKey, secretKey} from '../AWSconfig';
-// import * as fs from 'fs';
 
 export default class SlideShow extends Component {
   state = {
@@ -44,7 +43,6 @@ export default class SlideShow extends Component {
 
   componentDidUpdate(prevProps) {
     if (
-      //how can this be different
       prevProps.navigation.getParam('tiles', 'no tiles') !==
       this.props.navigation.getParam('tiles', 'no tiles')
     ) {
@@ -53,7 +51,6 @@ export default class SlideShow extends Component {
   }
 
   getVideoObject = () => {
-    console.log('get video object');
     const galleryTiles = this.props.navigation.getParam('tiles', 'no tiles');
     const options = {
       keyPrefix: 'images/',
@@ -113,18 +110,12 @@ export default class SlideShow extends Component {
                 images: s3ImageURLS,
                 sounds: videoSounds,
               };
-              console.log(s3ImageURLS);
               const stateImages = s3ImageURLS.map(url => {
                 return {
                   uri: url,
                 };
               });
-              this.setState(
-                {videoObject: videoObject, images: stateImages},
-                () => {
-                  console.log(this.state.images);
-                },
-              );
+              this.setState({videoObject: videoObject, images: stateImages});
             }
           });
       }
