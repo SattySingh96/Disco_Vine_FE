@@ -16,24 +16,12 @@ export default class SlideShow extends Component {
   state = {
     images: [],
     videoObject: {},
-    //put in sound objects
-    testSounds: [
-      {
-        url:
-          'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/191478__urupin__ping-ping.wav',
-        pose: 'TPose',
-      },
-      {
-        url:
-          'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/376523__djfroyd__mystical-sound-sample.wav',
-        pose: 'Dab',
-      },
-    ],
-
-    testImages: [
-      require('../assets/Images/img.png'),
+    sounds: [],
+    uris: [],
+    hardcodedImages: [
       require('../assets/Images/002.png'),
       require('../assets/Images/003.png'),
+      require('../assets/Images/img.png'),
     ],
   };
 
@@ -70,8 +58,10 @@ export default class SlideShow extends Component {
     });
 
     const videoSounds = validTiles.map(tile => {
-      return tile.sound.url;
+      return tile.sound;
     });
+
+    this.setState({uris: videoImageURIs, sounds: videoSounds}, () => {});
 
     const s3ImageURLS = [];
 
@@ -101,7 +91,7 @@ export default class SlideShow extends Component {
             });
             return s3ImageURLS;
           })
-          .then(async s3ImageURLS => {
+          .then(s3ImageURLS => {
             if (
               s3ImageURLS.length === validTiles.length &&
               !s3ImageURLS.includes(undefined)
@@ -115,7 +105,12 @@ export default class SlideShow extends Component {
                   uri: url,
                 };
               });
-              this.setState({videoObject: videoObject, images: stateImages});
+              this.setState(
+                {videoObject: videoObject, images: stateImages},
+                () => {
+                  console.log('got images back');
+                },
+              );
             }
           });
       }
@@ -141,7 +136,7 @@ export default class SlideShow extends Component {
         <SoundPlaya
           style={styles.soundPlayerContainer}
           testImages={this.state.images}
-          soundsToLoad={this.state.testSounds}
+          soundsToLoad={this.state.sounds}
         />
       </ScrollView>
     );

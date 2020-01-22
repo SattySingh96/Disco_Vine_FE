@@ -10,7 +10,6 @@ export default class ImageThumbnail extends Component {
     };
     if (!this.props.selected) {
       ImagePicker.showImagePicker(options, response => {
-        const localTime = new Date().getTime();
         const file = {
           data: response.data,
           uri: response.uri,

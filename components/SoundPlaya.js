@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
   Image,
+  Text,
   View,
   TouchableOpacity,
   StyleSheet,
@@ -13,44 +14,61 @@ Sound.setCategory('Playback');
 
 export default class SoundPlaya extends Component {
   state = {
+    images: [],
     loadedSounds: [],
     loadedVideo: {},
-    ready: 0,
     playable: false,
     pressed: false,
   };
 
   componentDidMount() {
-    this.props.soundsToLoad.forEach((file, index) => {
-      const newSound = new Sound(file.url, undefined, error => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          alert('problem loading sounds');
-        }
-      });
-      this.setState(
-        ({loadedSounds, ready}) => {
-          const newSounds = [...loadedSounds];
-          let newReady = ready;
-          newReady++;
-          newSounds[index] = newSound;
-          return {loadedSounds: newSounds, ready: newReady};
-        },
-        () => {
-          if (this.state.ready === this.props.soundsToLoad.length)
-            this.setState({playable: true});
-        },
-      );
-
-      return newSound;
-    });
+    this.loadMedia();
   }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.soundsToLoad !== this.props.soundsToLoad ||
+      prevProps.testImages !== this.props.testImages
+    )
+      this.loadMedia();
+  }
+
+  loadMedia = () => {
+    const {soundsToLoad} = this.props;
+    const {testImages} = this.props;
+    console.log(testImages);
+    this.setState({loadedSounds: soundsToLoad, images: testImages}, () => {
+      this.setState({playable: true}, () => {
+        console.log('set state');
+      });
+    });
+  };
+
+  clickHandler = () => {
+    this.setState(
+      currentState => {
+        return {pressed: !currentState.pressed};
+      },
+      () => {
+        if (this.state.playable && this.state.pressed) {
+          this.playSound(0);
+        }
+      },
+    );
+  };
+
+  playSound = n => {
+    if (n < this.state.loadedSounds.length) {
+      this.state.loadedSounds[n].play(() => {
+        this.playSound(n + 1);
+      });
+    } else this.setState({pressed: false});
+  };
 
   renderAnimation = () => {
     console.log('rendering animation');
     if (this.state.pressed) {
-      console.log('pressed');
-      console.log(this.props.testImages);
+      console.log(this.props.testImages, '333333');
       return (
         <ImageSequence
           images={this.props.testImages}
@@ -62,21 +80,6 @@ export default class SoundPlaya extends Component {
       );
     } else {
       return <Image source={this.props.testImages[0]}></Image>;
-    }
-  };
-
-  clickHandler = () => {
-    if (this.state.playable) {
-      this.state.loadedSounds[0].play(() => {
-        // this.state.loadedSounds[0].release();
-        this.state.loadedSounds[1].play(() => {
-          // this.state.loadedSounds[1].release();
-          this.setState({pressed: false});
-        });
-      });
-      this.setState({
-        pressed: true,
-      });
     }
   };
 
