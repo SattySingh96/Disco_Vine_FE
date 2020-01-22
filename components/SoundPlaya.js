@@ -47,7 +47,10 @@ export default class SoundPlaya extends Component {
   }
 
   renderAnimation = () => {
+    console.log('rendering animation');
     if (this.state.pressed) {
+      console.log('pressed');
+      console.log(this.props.testImages);
       return (
         <ImageSequence
           images={this.props.testImages}
@@ -59,6 +62,7 @@ export default class SoundPlaya extends Component {
       );
     } else {
       return <Image source={this.props.testImages[0]}></Image>;
+      //</Image>
     }
   };
 
