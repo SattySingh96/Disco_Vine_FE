@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
 import VideoMaker from '../components/VideoMaker';
@@ -65,36 +66,57 @@ export default class Gallery extends Component {
     return (
       <Fragment>
         <StatusBar barStyle="light-content" />
-        <View style={styles.body}>
-          <View style={styles.ImageSections}>
-            <FlatList
-              extraData={this.state.images}
-              columnWrapperStyle={styles.horizontalRow}
-              numColumns={3}
-              style={styles.horizontalScrollImageView}
-              data={this.state.images}
-              renderItem={({item, index}) => (
-                <ImageThumbnail
-                  onSelected={this.tapGalleryButton}
-                  selected={item.selected}
-                  file={item.imgFile}
-                  buttonKey={index}
-                  imageStyle={styles.imageCard}
-                />
-              )}
-            />
-            <VideoMaker
-              tiles={this.state.tiles}
-              fetchToSlideShow={this.fetchToSlideShow}
-              style={{alignContent: 'flex-start'}}
-            />
+        <ScrollView>
+          <View style={styles.body}>
+            <View style={styles.ImageSections}>
+              <FlatList
+                extraData={this.state.images}
+                columnWrapperStyle={styles.horizontalRow}
+                numColumns={3}
+                style={styles.horizontalScrollImageView}
+                data={this.state.images}
+                renderItem={({item, index}) => (
+                  <ImageThumbnail
+                    onSelected={this.tapGalleryButton}
+                    selected={item.selected}
+                    file={item.imgFile}
+                    buttonKey={index}
+                    imageStyle={styles.imageCard}
+                  />
+                )}
+              />
+              <VideoMaker
+                tiles={this.state.tiles}
+                fetchToSlideShow={this.fetchToSlideShow}
+                style={styles.VideoMaker}
+              />
+              <TouchableOpacity
+                style={styles.createVidBtn}
+                title={'create video'}
+                onPress={() => {
+                  this.props.navigation.navigate('SlideShow', {
+                    tiles: this.state.tiles,
+                  });
+                }}>
+                <Text style={styles.ButtonText}>CREATE VIDEO</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </Fragment>
     );
   }
 }
 const styles = StyleSheet.create({
+  createVidBtn: {
+    flex: 1,
+    height: Dimensions.get('screen').height / 20,
+    width: Dimensions.get('screen').width / 5,
+  },
+  VideoMaker: {
+    flex: 3,
+    alignContent: 'flex-start',
+  },
   scrollView: {
     backgroundColor: '#FFFFFF',
     backgroundColor: 'pink',
@@ -105,7 +127,7 @@ const styles = StyleSheet.create({
   horizontalScrollImageView: {
     marginRight: 10,
     paddingTop: 30,
-    flex: 1,
+    flex: 2,
   },
   imageCard: {
     width: 120,
