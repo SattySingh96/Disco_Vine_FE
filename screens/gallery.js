@@ -5,13 +5,41 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
-  ScrollView,
   FlatList,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
 import VideoMaker from '../components/VideoMaker';
+import Sound from 'react-native-sound';
+
+const soundLinks = {
+  'T-Pose': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
+  'Left Dab': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/wobble.mp3',
+  'Right Dab':
+    'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/reverse_chime.mp3',
+  Squat: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
+  'Power Stance':
+    'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/splash.mp3',
+  Pencil: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/snare2.mp3',
+  Tree: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/snare1.mp3',
+  'Special-K': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boop.mp3',
+  Rock: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/rattle.mp3',
+};
+
+const soundRandomiser = () => {
+  const stances = [
+    'T-Pose',
+    'Left Dab',
+    'Right Dab',
+    'Squat',
+    'Power Stance',
+    'Pencil',
+    'Tree',
+    'Special-K',
+    'Rock',
+  ];
+  return stances[Math.floor(Math.random() * Math.floor(9))];
+};
 
 export default class Gallery extends Component {
   state = {
@@ -87,6 +115,15 @@ export default class Gallery extends Component {
       },
     ],
   };
+  loadSound = poseName => {
+    const newSound = new Sound(soundLinks[poseName], undefined, error => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        alert('problem loading sounds');
+      }
+    });
+    return newSound;
+  };
 
   fetchToSlideShow = destinationKey => {
     this.setState(({tiles}) => {
@@ -116,7 +153,9 @@ export default class Gallery extends Component {
       this.setState(
         ({tiles, images}) => {
           const newTiles = [...tiles];
+          const newSound = this.loadSound(soundRandomiser);
           newTiles[this.state.addToTrack].imgFile = images[buttonKey].imgFile;
+          newTiles[this.state.addToTrack].sound = newSound;
           newTiles[this.state.addToTrack].highlighted = false;
           return {tiles: newTiles};
         },
