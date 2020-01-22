@@ -1,8 +1,6 @@
 import React, {Fragment, Component} from 'react';
 import {StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import {RNS3} from 'react-native-aws3';
-import {accessKey, secretKey} from '../AWSconfig';
 
 export default class ImageThumbnail extends Component {
   state = {
@@ -15,6 +13,8 @@ export default class ImageThumbnail extends Component {
     filePublicURL: '',
   };
   chooseImage = () => {
+    console.log(this.props.highlighted);
+    console.log(this.props.buttonKey);
     const options = {
       title: '',
       storageOptions: {skipBackUp: true, path: 'images'},
@@ -66,24 +66,21 @@ export default class ImageThumbnail extends Component {
       );
     } else
       return (
-        <Image
-          source={require('../assets/Images/gallery-placeholder.jpg')}
-          style={this.props.imageStyle}
-        />
+        <Image source={this.props.placeholder} style={this.props.imageStyle} />
       );
   }
 
   render() {
+    let highlighted = {
+      ...this.props.buttonStyle,
+      borderWidth: 5,
+      borderColor: 'red',
+    };
+    if (!this.props.highlighted) highlighted = {...this.props.buttonStyle};
     return (
-      <TouchableOpacity style={styles.opacity} onPress={this.chooseImage}>
+      <TouchableOpacity style={highlighted} onPress={this.chooseImage}>
         {this.renderFileData()}
       </TouchableOpacity>
     );
   }
 }
-const styles = StyleSheet.create({
-  opacity: {
-    // width: 120,
-    margin: 8,
-  },
-});
