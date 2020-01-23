@@ -13,8 +13,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
 import FeedHeader from '../components/FeedHeader';
 
-//hardcode sounds
-//hardcode image
 const soundLinks = {
   'T-Pose': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
   'Left Dab': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/wobble.mp3',
@@ -33,50 +31,32 @@ export default class Feed extends Component {
   state = {
     videos: [],
     images1: [
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/06173317.jpg',
-      },
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/06173317.jpg',
-      },
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/10785705.jpg',
-      },
+      require('../assets/Images/IMG_20200110_124928834.jpg'),
+      require('../assets/Images/IMG_20200110_124946021.jpg'),
+      require('../assets/Images/IMG_20200110_125000678.jpg'),
+      require('../assets/Images/IMG_20200110_124946021.jpg'),
+      require('../assets/Images/IMG_20200110_125000678.jpg'),
     ],
     images2: [
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/11662940.jpg',
-      },
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/11760407.jpg',
-      },
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/13197178.jpg',
-      },
+      require('../assets/Images/IMG_20200110_125013572.jpg'),
+      require('../assets/Images/IMG_20200110_125025237.jpg'),
+      require('../assets/Images/IMG_20200110_125036630.jpg'),
+      require('../assets/Images/IMG_20200110_125013572.jpg'),
+      require('../assets/Images/IMG_20200110_125025237.jpg'),
+      require('../assets/Images/IMG_20200110_125013572.jpg'),
     ],
     images3: [
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/16026045.jpg',
-      },
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/18180045.jpg',
-      },
-      {
-        uri:
-          'https://eu-image-bucket.s3.eu-west-2.amazonaws.com/images/18593376.jpg',
-      },
+      require('../assets/Images/IMG_20200110_125120858.jpg'),
+      require('../assets/Images/IMG_20200110_125214258_BURST000_COVER_TOP.jpg'),
+      require('../assets/Images/IMG_20200110_125222202.jpg'),
     ],
     sounds1: [
       new Sound(
         'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/snare1.mp3',
+      ),
+      new Sound('https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boop.mp3'),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/rattle.mp3',
       ),
       new Sound('https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boop.mp3'),
       new Sound(
@@ -88,10 +68,19 @@ export default class Feed extends Component {
         'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
       ),
       new Sound(
-        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/splash.mp3',
       ),
       new Sound(
         'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/snare2.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/splash.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
       ),
     ],
     sounds3: [
@@ -110,13 +99,13 @@ export default class Feed extends Component {
     heart3: 3,
   };
 
-  async componentDidMount() {
-    await fetch(
-      'https://0i43ly7yni.execute-api.eu-west-2.amazonaws.com/latest/videos',
-    ).then(videos => {
-      this.setState({videos: videos});
-    });
-  }
+  //   async componentDidMount() {
+  //     await fetch(
+  //       'https://0i43ly7yni.execute-api.eu-west-2.amazonaws.com/latest/videos',
+  //     ).then(videos => {
+  //       this.setState({videos: videos});
+  //     });
+  //   }
 
   onheartClick1 = () => {
     this.setState(currentState => {
@@ -140,73 +129,132 @@ export default class Feed extends Component {
     return (
       <View>
         <FeedHeader />
-        <ScrollView>
-          <View style={styles.view1}>
+        <ScrollView style={styles.body}>
+          <View style={styles.views}>
+            <View style={styles.vineHeader}>
+              <Text style={styles.text}>Dancing Queen</Text>
+              <Text style={styles.text}>Jan 23</Text>
+            </View>
             <SoundPlaya
+              styles={styles.player}
               testImages={this.state.images1}
               soundsToLoad={this.state.sounds1}
             />
             <TouchableOpacity
+              style={styles.hearts}
               onPress={() => {
                 this.onheartClick1();
               }}>
               {this.state.heart1 === 0 && (
                 <Icon
-                  color={'#E74C3B'}
-                  size={25}
+                  style={styles.heart}
+                  color={'white'}
+                  size={35}
                   name={'md-heart-empty'}></Icon>
               )}
               {this.state.heart1 > 0 && (
-                <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
+                <Icon color={'white'} size={35} name={'md-heart'}></Icon>
               )}
-              <Text>{this.state.heart1}</Text>
+              <Text style={styles.text}>{this.state.heart1}</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.view2}>
+          <View style={styles.views}>
+            <View style={styles.vineHeader}>
+              <Text style={styles.text}>Funky Town</Text>
+              <Text style={styles.text}>Jan 22</Text>
+            </View>
             <SoundPlaya
+              styles={styles.player}
               testImages={this.state.images2}
               soundsToLoad={this.state.sounds2}
             />
             <TouchableOpacity
+              style={styles.hearts}
               onPress={() => {
                 this.onheartClick2();
               }}>
-              <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
-              <Text>{this.state.heart2}</Text>
+              <Icon
+                style={styles.heart}
+                color={'white'}
+                size={35}
+                name={'md-heart'}></Icon>
+              <Text style={styles.text}>{this.state.heart2}</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.view3}>
+          <View style={styles.views}>
+            <View style={styles.vineHeader}>
+              <Text style={styles.text}>Disco Stu</Text>
+              <Text style={styles.text}>Jan 22</Text>
+            </View>
             <SoundPlaya
+              styles={styles.player}
               testImages={this.state.images3}
               soundsToLoad={this.state.sounds3}
             />
             <TouchableOpacity
+              style={styles.hearts}
               onPress={() => {
                 this.onheartClick3();
               }}>
-              <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
-              <Text>{this.state.heart3}</Text>
+              <Icon
+                style={styles.heart}
+                color={'white'}
+                size={35}
+                name={'md-heart'}></Icon>
+              <Text style={styles.text}>{this.state.heart3}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
     );
-    //<FlatList data={this.state.videos} />;
   }
 }
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: 'purple',
+    position: 'relative',
   },
-  view1: {
+
+  views: {
     backgroundColor: 'purple',
+    color: 'white',
+    height: 440,
+    margin: 30,
+    marginBottom: 15,
+    marginTop: 15,
+    borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
-  view2: {
-    backgroundColor: 'purple',
+  hearts: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  view3: {
-    backgroundColor: 'purple',
+  heart: {
+    margin: 10,
+  },
+  text: {
+    fontSize: 20,
+    color: 'white',
+    margin: 10,
+  },
+  player: {
+    maxWidth: Dimensions.get('screen').width - 60,
+    borderColor: 'black',
+    borderWidth: 5,
+    zIndex: 3,
+    height: 350,
+  },
+  vineHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderColor: 'black',
+    borderWidth: 5,
   },
   image: {
     height: 20,
