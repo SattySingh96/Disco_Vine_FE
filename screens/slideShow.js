@@ -1,15 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   ScrollView,
+  View,
   TouchableOpacity,
   Text,
   Dimensions,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlaya from '../components/SoundPlaya';
-import {RNS3} from 'react-native-aws3';
-import {accessKey, secretKey} from '../AWSconfig';
+import { RNS3 } from 'react-native-aws3';
+import { accessKey, secretKey } from '../AWSconfig';
+import { Icon, } from '@iconify/react';
+
+
 
 export default class SlideShow extends Component {
   state = {
@@ -108,41 +111,93 @@ export default class SlideShow extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.slideShowContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}>
-          <Icon color={'#3b5998'} size={10} name={'md-arrow-round-back'}></Icon>
-          <Text>GO BACK</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.makeVideoShareable}>
-          <Icon color={'#3b5998'} size={10} name={'md-cloud-upload'}></Icon>
-          <Text>PUBLISH</Text>
-        </TouchableOpacity>
-        <SoundPlaya
-          style={styles.soundPlayerContainer}
-          testImages={this.state.testImages}
-          soundsToLoad={this.state.testSounds}
-        />
-      </ScrollView>
+      <View style={styles.SlideShowContainer}>
+        <View style={styles.ButtonContainer}>
+          <TouchableOpacity
+            style={styles.BackButton}
+            onPress={() => {
+              this.props.navigation.goBack();
+            }}>
+            <Icon size={15} name={'md-arrow-round-back'} style={styles.Icons}></Icon>
+            <Text style={styles.Text}>GO BACK</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.ForwardButton}
+            onPress={this.makeVideoShareable}>
+            <Text style={styles.Text}>PUBLISH</Text>
+            <Icon size={15} name={'md-arrow-round-forward'} style={styles.Icons}></Icon>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.SoundPlayerContainer}>
+          <SoundPlaya
+            style={styles.Video}
+            testImages={this.state.testImages}
+            soundsToLoad={this.state.testSounds}
+            size={150}
+          />
+        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  button: {
-    flex: 1,
-    justifyContent: 'flex-start',
+  BackButton: {
+    width: 100,
+    height: 50,
+    backgroundColor: 'red',
+    borderStyle: 'solid',
+    borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2
+
+
   },
-  soundPlayerContainer: {
-    flex: 4,
-    height: Dimensions.get('screen').height / 2,
+  ForwardButton: {
+    width: 100,
+    height: 50,
+    backgroundColor: '#22B573',
+    borderStyle: 'solid',
+    borderRadius: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2
+
   },
-  slideShowContainer: {
+  ButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+    backgroundColor: '#404040'
+  },
+  Text: {
+    color: 'white',
+    fontSize: 18,
+    margin: 5
+  },
+  Icons: {
+    color: 'white'
+  },
+  SoundPlayerContainer: {
+    borderWidth: 5,
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderRadius: 5,
+    height: 400,
+    margin: 10,
+
+  },
+
+  SlideShowContainer: {
     flexDirection: 'column',
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
+    backgroundColor: "#E0E0E0"
   },
 });

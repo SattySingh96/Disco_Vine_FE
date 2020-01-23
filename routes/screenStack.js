@@ -18,7 +18,7 @@ const screens = {
           <Icon style={[{ color: tintColor }]} size={25} name={'md-home'}></Icon>
         </View>
       ),
-      tabBarColor: '#E74C3B',
+      tabBarColor: 'purple',
     },
   },
   Gallery: {
@@ -45,7 +45,7 @@ const screens = {
           <Icon style={[{ color: tintColor }]} size={25} name={'md-film'}></Icon>
         </View>
       ),
-      tabBarColor: '#22B573',
+      tabBarColor: 'purple',
     },
   },
 };
