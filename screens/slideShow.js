@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -10,10 +10,8 @@ import {
 import PublishButton from '../components/PublishButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlaya from '../components/SoundPlaya';
-import { RNS3 } from 'react-native-aws3';
-import { accessKey, secretKey } from '../AWSconfig';
-
-
+import {RNS3} from 'react-native-aws3';
+import {accessKey, secretKey} from '../AWSconfig';
 
 export default class SlideShow extends Component {
   state = {
@@ -64,7 +62,7 @@ export default class SlideShow extends Component {
       return tile.sound;
     });
 
-    this.setState({ uris: videoImageURIs, sounds: videoSounds }, () => { });
+    this.setState({uris: videoImageURIs, sounds: videoSounds}, () => {});
 
     const s3ImageURLS = [];
 
@@ -109,7 +107,7 @@ export default class SlideShow extends Component {
                 };
               });
               this.setState(
-                { videoObject: videoObject, images: stateImages },
+                {videoObject: videoObject, images: stateImages},
                 () => {
                   console.log('got images back');
                 },
@@ -129,14 +127,17 @@ export default class SlideShow extends Component {
             onPress={() => {
               this.props.navigation.goBack();
             }}>
-            <Icon style={styles.icon} color={'#3b5998'} size={20} name={'md-arrow-round-back'}></Icon>
+            <Icon
+              style={styles.icon}
+              color={'#3b5998'}
+              size={20}
+              name={'md-arrow-round-back'}></Icon>
             <Text style={styles.text}>GO BACK</Text>
           </TouchableOpacity>
           <PublishButton
             style={styles.ForwardButton}
             tiles={this.props.navigation.getParam('tiles', 'no tiles')}
             videoObject={this.state.videoObject}
-
           />
         </View>
         <View style={styles.playerSurround}>
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 2
+    margin: 2,
   },
 
   ButtonContainer: {
@@ -170,15 +171,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
-    backgroundColor: '#404040'
+    backgroundColor: '#404040',
   },
   Text: {
     color: 'white',
     fontSize: 18,
-    margin: 5
+    margin: 5,
   },
   Icons: {
-    color: 'white'
+    color: 'white',
   },
   SoundPlayerContainer: {
     borderWidth: 5,
@@ -187,22 +188,28 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 400,
     margin: 10,
-
+    backgroundColor: '#d8e0f4',
   },
-  // playerSurround: {
-  //   flex: 0,
-  //   borderStyle: 'solid',
-  //   borderWidth: 2,
-  //   borderColor: 'black',
-  //   borderRadius: 5,
-  //   margin: 50,
-  // },
+  playerSurround: {
+    flex: 1,
+    flexDirection: 'row',
+    borderStyle: 'solid',
+    backgroundColor: 'purple',
+    borderWidth: 2,
+    borderColor: 'purple',
+    borderRadius: 5,
+    margin: 50,
+    height: 340,
+    width: 320,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
 
   SlideShowContainer: {
     flexDirection: 'column',
     height: Dimensions.get('screen').height,
     width: Dimensions.get('screen').width,
-    backgroundColor: "#E0E0E0"
+    backgroundColor: '#E0E0E0',
+    alignSelf: 'flex-start',
   },
-
 });

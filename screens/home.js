@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
+import React, {Component} from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import FeedHeader from '../components/FeedHeader';
 
 export default class Home extends Component {
   render() {
     return (
       <View style={styles.HomeContainer}>
-        <ImageBackground style={{
-          flex: 1,
-          alignSelf: 'stretch',
-          resizeMode: 'stretch',
-          width: undefined,
-          height: undefined,
-        }} source={require('/home/mattg95/Documents/proj/Disco_Vine_FE/assets/Images/giphy.gif')} >
+        <ImageBackground
+          style={{
+            flex: 1,
+            alignSelf: 'stretch',
+            resizeMode: 'stretch',
+            width: undefined,
+            height: undefined,
+          }}
+          source={require('../assets/Images/giphy.gif')}>
           <FeedHeader />
           <View style={styles.ButtonContainer}>
             <TouchableOpacity
@@ -29,10 +38,9 @@ export default class Home extends Component {
               }}>
               <Text style={styles.ButtonText}>VIEW</Text>
             </TouchableOpacity>
-
           </View>
-        </ImageBackground >
-      </View >
+        </ImageBackground>
+      </View>
     );
   }
 }
@@ -53,7 +61,6 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     width: undefined,
     height: undefined,
-
   },
 
   ButtonContainer: {
@@ -74,13 +81,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     borderColor: 'purple',
-    backgroundColor: '#d8e0f4'
-
+    backgroundColor: '#d8e0f4',
   },
   ButtonText: {
     textAlign: 'center',
     fontFamily: 'sans-serif',
     fontSize: 25,
-    color: 'purple'
+    color: 'purple',
   },
 });

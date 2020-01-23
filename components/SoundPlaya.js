@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Image,
   Text,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Sound from 'react-native-sound';
 import ImageSequence from 'react-native-image-sequence';
-import { Icon } from '@iconify/react';
+import {Icon} from '@iconify/react';
 import PlayOutline from '@iconify/icons-ion/play-outline';
 
 Sound.setCategory('Playback');
@@ -36,11 +36,11 @@ export default class SoundPlaya extends Component {
   }
 
   loadMedia = () => {
-    const { soundsToLoad } = this.props;
-    const { testImages } = this.props;
-    this.setState({ loadedSounds: soundsToLoad, images: testImages }, () => {
-      this.setState({ playable: true })
-    })
+    const {soundsToLoad} = this.props;
+    const {testImages} = this.props;
+    this.setState({loadedSounds: soundsToLoad, images: testImages}, () => {
+      this.setState({playable: true});
+    });
   };
 
   playSound = n => {
@@ -48,17 +48,19 @@ export default class SoundPlaya extends Component {
       this.state.loadedSounds[n].play(() => {
         this.playSound(n + 1);
       });
-    } else this.setState({ pressed: false });
+    } else this.setState({pressed: false});
   };
 
   clickHandler = () => {
     this.setState(
       currentState => {
-        return { pressed: !currentState.pressed };
+        return {pressed: !currentState.pressed};
       },
       () => {
         if (this.state.playable && this.state.pressed) {
-          this.playSound(0);
+          setTimeout(() => {
+            this.playSound(0);
+          }, 600);
         }
       },
     );
@@ -66,21 +68,18 @@ export default class SoundPlaya extends Component {
 
   renderAnimation = () => {
     if (this.state.pressed) {
-      const { testImages } = this.props
       return (
         <ImageSequence
-          images={testImages}
-          framesPerSecond={1}
-          startFrameIndex={Math.round(testImages.length / 2)}
+          images={this.state.images}
+          framesPerSecond={1.1}
+          startFrameIndex={0}
           style={styles.imageSequence}
           loop={false}
         />
       );
     } else {
       return (
-        <Image
-          style={styles.pausedImage}
-          source={this.props.testImages[0]}></Image>
+        <Image style={styles.pausedImage} source={this.state.images[0]}></Image>
       );
     }
   };
@@ -98,14 +97,16 @@ export default class SoundPlaya extends Component {
 }
 
 const styles = StyleSheet.create({
-  // screenBody: {
-  //   width: (Dimensions.get('screen').width * 4) / 5,
-  //   height: Dimensions.get('screen').height / 2,
-  //   backgroundColor: '#e0e0e0',
-  // },
+  screenBody: {
+    width: (Dimensions.get('screen').width * 4) / 5,
+    height: Dimensions.get('screen').height / 2,
+    backgroundColor: '#e0e0e0',
+  },
   imageSequence: {
-    width: Dimensions.get('screen').width - 60,
+    maxWidth: Dimensions.get('screen').width - 60,
     height: 320,
+    width: 320,
+    alignSelf: 'center',
   },
   playButton: {
     width: 300,
@@ -122,8 +123,11 @@ const styles = StyleSheet.create({
     height: 320,
   },
   pausedImage: {
-    maxWidth: Dimensions.get('screen').width - 60,
+    alignSelf: 'center',
+    width: 300,
+    maxWidth: Dimensions.get('screen').width - 70,
     height: 320,
+    resizeMode: 'cover',
     zIndex: 1,
   },
 });
