@@ -38,7 +38,7 @@ export default class ImageThumbnail extends Component {
     let highlighted = {
       ...this.props.buttonStyle,
       borderWidth: 5,
-      borderColor: 'red',
+      borderColor: 'purple',
     };
     if (!this.props.highlighted) highlighted = {...this.props.buttonStyle};
     return (
