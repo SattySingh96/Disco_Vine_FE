@@ -135,6 +135,7 @@ export default class SlideShow extends Component {
           style={styles.button}
           tiles={this.props.navigation.getParam('tiles', 'no tiles')}
           videoObject={this.state.videoObject}
+
         />
         <SoundPlaya
           style={styles.soundPlayerContainer}
