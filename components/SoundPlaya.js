@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Text,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Sound from 'react-native-sound';
 import ImageSequence from 'react-native-image-sequence';
+import { Icon } from '@iconify/react';
+import PlayOutline from '@iconify/icons-ion/play-outline';
 
 Sound.setCategory('Playback');
 
@@ -34,11 +36,11 @@ export default class SoundPlaya extends Component {
   }
 
   loadMedia = () => {
-    const {soundsToLoad} = this.props;
-    const {testImages} = this.props;
+    const { soundsToLoad } = this.props;
+    const { testImages } = this.props;
     console.log(testImages);
-    this.setState({loadedSounds: soundsToLoad, images: testImages}, () => {
-      this.setState({playable: true}, () => {
+    this.setState({ loadedSounds: soundsToLoad, images: testImages }, () => {
+      this.setState({ playable: true }, () => {
         console.log('set state');
       });
     });
@@ -49,13 +51,13 @@ export default class SoundPlaya extends Component {
       this.state.loadedSounds[n].play(() => {
         this.playSound(n + 1);
       });
-    } else this.setState({pressed: false});
+    } else this.setState({ pressed: false });
   };
 
   clickHandler = () => {
     this.setState(
       currentState => {
-        return {pressed: !currentState.pressed};
+        return { pressed: !currentState.pressed };
       },
       () => {
         if (this.state.playable && this.state.pressed) {
@@ -74,7 +76,7 @@ export default class SoundPlaya extends Component {
           images={this.props.testImages}
           framesPerSecond={1}
           startFrameIndex={0}
-          style={{width: 300, height: 300}}
+          style={styles.imageSequence}
           loop={false}
         />
       );
@@ -94,6 +96,7 @@ export default class SoundPlaya extends Component {
           {this.renderAnimation()}
         </TouchableOpacity>
       </View>
+      //</View>
     );
   }
 }
@@ -104,23 +107,26 @@ const styles = StyleSheet.create({
   //   height: Dimensions.get('screen').height / 2,
   //   backgroundColor: '#e0e0e0',
   // },
+  imageSequence: {
+    width: Dimensions.get('screen').width - 60,
+    height: 320,
+  },
   playButton: {
     width: 300,
     height: 300,
   },
   opacityContainer: {
     //position: 'absolute',
-    maxWidth: Dimensions.get('screen').width - 60,
+    maxWidth: Dimensions.get('screen').width,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignSelf: 'center',
     alignItems: 'center',
-    //backgroundColor: '#ffffff',
+    height: 320,
   },
   pausedImage: {
     maxWidth: Dimensions.get('screen').width - 60,
-    // marginTop: 40,
     height: 320,
     zIndex: 1,
   },

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -109,19 +109,19 @@ export default class Feed extends Component {
 
   onheartClick1 = () => {
     this.setState(currentState => {
-      return {heart1: currentState.heart1 + 1};
+      return { heart1: currentState.heart1 + 1 };
     });
   };
 
   onheartClick2 = () => {
     this.setState(currentState => {
-      return {heart2: currentState.heart2 + 1};
+      return { heart2: currentState.heart2 + 1 };
     });
   };
 
   onheartClick3 = () => {
     this.setState(currentState => {
-      return {heart3: currentState.heart3 + 1};
+      return { heart3: currentState.heart3 + 1 };
     });
   };
 
@@ -153,7 +153,11 @@ export default class Feed extends Component {
                   name={'md-heart-empty'}></Icon>
               )}
               {this.state.heart1 > 0 && (
-                <Icon color={'white'} size={35} name={'md-heart'}></Icon>
+                <Icon
+                  style={styles.heart}
+                  color={'white'}
+                  size={35}
+                  name={'md-heart'}></Icon>
               )}
               <Text style={styles.text}>{this.state.heart1}</Text>
             </TouchableOpacity>
@@ -222,7 +226,7 @@ const styles = StyleSheet.create({
   views: {
     backgroundColor: 'purple',
     color: 'white',
-    height: 440,
+    height: 420,
     margin: 30,
     marginBottom: 15,
     marginTop: 15,
