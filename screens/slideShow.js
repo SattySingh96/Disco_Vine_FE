@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlaya from '../components/SoundPlaya';
 import { RNS3 } from 'react-native-aws3';
 import { accessKey, secretKey } from '../AWSconfig';
-import { Icon, } from '@iconify/react';
 
 
 
@@ -54,7 +53,7 @@ export default class SlideShow extends Component {
     };
 
     const validTiles = galleryTiles.filter(tile => {
-      return tile.imgFile.uri !== '';
+      return tile.imgFile.uri != '';
     });
 
     const videoImageURIs = validTiles.map(tile => {

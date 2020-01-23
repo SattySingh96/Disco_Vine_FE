@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -109,19 +109,19 @@ export default class Feed extends Component {
 
   onheartClick1 = () => {
     this.setState(currentState => {
-      return {heart1: currentState.heart1 + 1};
+      return { heart1: currentState.heart1 + 1 };
     });
   };
 
   onheartClick2 = () => {
     this.setState(currentState => {
-      return {heart2: currentState.heart2 + 1};
+      return { heart2: currentState.heart2 + 1 };
     });
   };
 
   onheartClick3 = () => {
     this.setState(currentState => {
-      return {heart3: currentState.heart3 + 1};
+      return { heart3: currentState.heart3 + 1 };
     });
   };
 
@@ -221,6 +221,8 @@ const styles = StyleSheet.create({
   },
   body: {
     marginBottom: 55,
+    backgroundColor: "#E0E0E0"
+
   },
   views: {
     backgroundColor: 'purple',

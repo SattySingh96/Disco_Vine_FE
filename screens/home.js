@@ -27,9 +27,18 @@ export default class Home extends Component {
               }}>
               <Text style={styles.ButtonText}>VIEW</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => { }}
+              style={styles.HomeButtons}>
+
+              <Text style={styles.ButtonText}>SIGN IN</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { }}
+              style={styles.HomeButtons}>
+              <Text style={styles.ButtonText}>Options</Text>
+            </TouchableOpacity>
           </View>
         </ImageBackground >
-      </View>
+      </View >
     );
   }
 }
@@ -40,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: Dimensions.get('screen').height,
+    height: 500,
     width: Dimensions.get('screen').width,
   },
   BacgkroundImage: {
@@ -57,7 +66,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   HomeButtons: {
@@ -67,8 +76,6 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderRadius: 12,
     justifyContent: 'center',
-    alignSelf: 'center',
-    margin: 50,
     alignSelf: 'center',
     borderColor: 'white'
 
