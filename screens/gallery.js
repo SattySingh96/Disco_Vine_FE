@@ -5,13 +5,42 @@ import {
   StatusBar,
   StyleSheet,
   Dimensions,
-  ScrollView,
   FlatList,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import ImageThumbnail from '../components/imageThumbnail';
 import VideoMaker from '../components/VideoMaker';
+import Sound from 'react-native-sound';
+
+const soundLinks = {
+  'T-Pose': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
+  'Left Dab': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/wobble.mp3',
+  'Right Dab':
+    'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/reverse_chime.mp3',
+  Squat: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
+  'Power Stance':
+    'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/splash.mp3',
+  Pencil: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/snare2.mp3',
+  Tree: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/snare1.mp3',
+  'Special-K': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boop.mp3',
+  Rock: 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/rattle.mp3',
+};
+
+const soundRandomiser = () => {
+  const stances = [
+    'T-Pose',
+    'Left Dab',
+    'Right Dab',
+    'Squat',
+    'Power Stance',
+    'Pencil',
+    'Tree',
+    'Special-K',
+    'Rock',
+  ];
+  console.log(stances[Math.floor(Math.random() * Math.floor(9))]);
+  return stances[Math.floor(Math.random() * Math.floor(9))].toString();
+};
 
 export default class Gallery extends Component {
   state = {
@@ -87,6 +116,18 @@ export default class Gallery extends Component {
       },
     ],
   };
+  loadSound = poseName => {
+    console.dir(poseName);
+    console.dir(soundLinks[poseName]);
+    const newSound = new Sound(soundLinks[poseName], undefined, error => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        alert('problem loading sounds');
+        return;
+      }
+    });
+    return newSound;
+  };
 
   fetchToSlideShow = destinationKey => {
     this.setState(({tiles}) => {
@@ -107,16 +148,19 @@ export default class Gallery extends Component {
               imgFile: {data: '', uri: ''},
             },
           ];
+          const newSound = this.loadSound(soundRandomiser());
           newImages[buttonKey].selected = true;
           newImages[buttonKey].imgFile = file;
+          newImages[buttonKey].sound = newSound;
           return {images: newImages};
         });
-      } else return;
+      } else this.state.images[buttonKey].sound.play();
     } else {
       this.setState(
         ({tiles, images}) => {
           const newTiles = [...tiles];
           newTiles[this.state.addToTrack].imgFile = images[buttonKey].imgFile;
+          newTiles[this.state.addToTrack].sound = images[buttonKey].sound;
           newTiles[this.state.addToTrack].highlighted = false;
           return {tiles: newTiles};
         },
@@ -197,10 +241,7 @@ const styles = StyleSheet.create({
     left: 90,
     marginBottom: 5,
   },
-  VideoMaker: {
-    // flex: 1,
-    // alignContent: 'flex-start',
-  },
+  VideoMaker: {},
   buttonStyle: {
     margin: Dimensions.get('screen').width / 40,
   },
@@ -237,8 +278,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 8,
     paddingVertical: 8,
-    // justifyContent: 'center',
-    // alignContent: 'flex-start',
     height: Dimensions.get('screen').height,
     width: Dimensions.get('screen').width,
     backgroundColor: '#E0E0E0',

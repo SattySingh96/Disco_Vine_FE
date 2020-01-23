@@ -7,6 +7,8 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
+import PublishButton from '../components/PublishButton';
+import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlaya from '../components/SoundPlaya';
 import { RNS3 } from 'react-native-aws3';
 import { accessKey, secretKey } from '../AWSconfig';
@@ -16,28 +18,32 @@ import { Icon, } from '@iconify/react';
 
 export default class SlideShow extends Component {
   state = {
-    testSounds: [
-      {
-        url:
-          'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/191478__urupin__ping-ping.wav',
-        pose: 'TPose',
-      },
-      {
-        url:
-          'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/376523__djfroyd__mystical-sound-sample.wav',
-        pose: 'Dab',
-      },
-    ],
-
-    testImages: [
-      require('../assets/Images/img.png'),
+    images: [],
+    videoObject: {},
+    sounds: [],
+    uris: [],
+    hardcodedImages: [
       require('../assets/Images/002.png'),
       require('../assets/Images/003.png'),
+      require('../assets/Images/img.png'),
     ],
   };
 
-  makeVideoShareable = () => {
-    console.log(this.props.navigation.getParam('tiles', 'no tiles')[0].key);
+  componentDidMount() {
+    this.getVideoObject();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.navigation.getParam('tiles', 'no tiles') !==
+      this.props.navigation.getParam('tiles', 'no tiles')
+    ) {
+      this.getVideoObject();
+    }
+  }
+
+  getVideoObject = () => {
+    const galleryTiles = this.props.navigation.getParam('tiles', 'no tiles');
     const options = {
       keyPrefix: 'images/',
       bucket: 'eu-image-bucket',
@@ -47,96 +53,96 @@ export default class SlideShow extends Component {
       successActionStatus: 201,
     };
 
-    const validTiles = this.props.navigation
-      .getParam('tiles', 'no tiles')
-      .filter(tile => {
-        console.log(tile.uri);
-        return tile.uri !== '';
-      });
+    const validTiles = galleryTiles.filter(tile => {
+      return tile.imgFile.uri !== '';
+    });
 
-    console.log(validTiles.length);
+    const videoImageURIs = validTiles.map(tile => {
+      return tile.imgFile.uri;
+    });
 
     const videoSounds = validTiles.map(tile => {
-      return tile.sound.url;
+      return tile.sound;
     });
+
+    this.setState({ uris: videoImageURIs, sounds: videoSounds }, () => { });
 
     const s3ImageURLS = [];
 
-    validTiles.forEach((tile, idx) => {
+    videoImageURIs.forEach((uri, idx) => {
       const file = {
-        uri: tile.imgFile.uri,
-        //should make the image name unique- i.e. make username part of image name, maybe take some of response.uri?
-        name: 'userYimage.jpg',
+        uri: uri,
+        //make the image name unique
+        name: `${uri.substring(uri.length - 8)}.jpg`,
         //will it always by jpg? Probably, but could take response.uri.subString(-3) unless jpeg...
         type: 'image/jpg',
       };
 
-      RNS3.put(file, options)
-        .then(s3response => {
-          if (s3response.status !== 201) {
-            throw new Error('Failed to upload image to S3');
-          }
-          s3ImageURLS[idx] = s3response.body.postResponse.location;
-          console.log(s3ImageURLS);
-        })
-        .then(async () => {
-          if (s3ImageURLS.length === validTiles.length) {
-            console.log(s3ImageURLS);
-
-            const videoObject = {
-              images: s3ImageURLS,
-              sounds: videoSounds,
-            };
-            console.log(videoObject);
-            //put in user_id
-            await fetch(
-              'https://0i43ly7yni.execute-api.eu-west-2.amazonaws.com/latest/videos/1',
-              {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  videoObject,
-                }),
-              },
-            ).then(fetchedResponse => {
-              console.log(fetchedResponse);
+      if (videoImageURIs.indexOf(uri) === idx) {
+        RNS3.put(file, options)
+          .then(s3response => {
+            if (s3response.status !== 201) {
+              throw new Error('Failed to upload image to S3');
+            }
+            s3ImageURLS[idx] = s3response.body.postResponse.location;
+            return s3ImageURLS;
+          })
+          .then(s3ImageURLS => {
+            videoImageURIs.forEach((uri, idx) => {
+              if (videoImageURIs.indexOf(uri) !== idx) {
+                s3ImageURLS[idx] = s3ImageURLS[videoImageURIs.indexOf(uri)];
+              }
             });
-          }
-        });
+            return s3ImageURLS;
+          })
+          .then(s3ImageURLS => {
+            if (
+              s3ImageURLS.length === validTiles.length &&
+              !s3ImageURLS.includes(undefined)
+            ) {
+              const videoObject = {
+                images: s3ImageURLS,
+                sounds: videoSounds,
+              };
+              const stateImages = s3ImageURLS.map(url => {
+                return {
+                  uri: url,
+                };
+              });
+              this.setState(
+                { videoObject: videoObject, images: stateImages },
+                () => {
+                  console.log('got images back');
+                },
+              );
+            }
+          });
+      }
     });
   };
 
   render() {
     return (
-      <View style={styles.SlideShowContainer}>
-        <View style={styles.ButtonContainer}>
-          <TouchableOpacity
-            style={styles.BackButton}
-            onPress={() => {
-              this.props.navigation.goBack();
-            }}>
-            <Icon size={15} name={'md-arrow-round-back'} style={styles.Icons}></Icon>
-            <Text style={styles.Text}>GO BACK</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.ForwardButton}
-            onPress={this.makeVideoShareable}>
-            <Text style={styles.Text}>PUBLISH</Text>
-            <Icon size={15} name={'md-arrow-round-forward'} style={styles.Icons}></Icon>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.SoundPlayerContainer}>
-          <SoundPlaya
-            style={styles.Video}
-            testImages={this.state.testImages}
-            soundsToLoad={this.state.testSounds}
-            size={150}
-          />
-        </View>
-      </View>
+      <ScrollView style={styles.slideShowContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}>
+          <Icon color={'#3b5998'} size={10} name={'md-arrow-round-back'}></Icon>
+          <Text>GO BACK</Text>
+        </TouchableOpacity>
+        <PublishButton
+          style={styles.button}
+          tiles={this.props.navigation.getParam('tiles', 'no tiles')}
+          videoObject={this.state.videoObject}
+        />
+        <SoundPlaya
+          style={styles.soundPlayerContainer}
+          testImages={this.state.images}
+          soundsToLoad={this.state.sounds}
+        />
+      </ScrollView>
     );
   }
 }

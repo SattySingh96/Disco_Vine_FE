@@ -1,21 +1,22 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { View } from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Home from '../screens/home';
 import Gallery from '../screens/gallery';
 import SlideShow from '../screens/slideShow';
+import Feed from '../screens/feed';
 
 const screens = {
   Home: {
     screen: Home,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor }) => (
+      tabBarIcon: ({tintColor}) => (
         <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'md-home'}></Icon>
+          <Icon style={[{color: tintColor}]} size={25} name={'md-home'}></Icon>
         </View>
       ),
       tabBarColor: 'purple',
@@ -25,10 +26,10 @@ const screens = {
     screen: Gallery,
     navigationOptions: {
       tabBarLabel: 'Gallery',
-      tabBarIcon: ({ tintColor }) => (
+      tabBarIcon: ({tintColor}) => (
         <View>
           <Icon
-            style={[{ color: tintColor }]}
+            style={[{color: tintColor}]}
             size={25}
             name={'md-photos'}></Icon>
         </View>
@@ -40,12 +41,24 @@ const screens = {
     screen: SlideShow,
     navigationOptions: {
       tabBarLabel: 'Clips',
-      tabBarIcon: ({ tintColor }) => (
+      tabBarIcon: ({tintColor}) => (
         <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'md-film'}></Icon>
+          <Icon style={[{color: tintColor}]} size={25} name={'md-film'}></Icon>
         </View>
       ),
       tabBarColor: 'purple',
+    },
+  },
+  Feed: {
+    screen: Feed,
+    navigationOptions: {
+      tabBarLabel: 'Feed',
+      tabBarIcon: ({tintColor}) => (
+        <View>
+          <Icon style={[{color: tintColor}]} size={25} name={'md-today'}></Icon>
+        </View>
+      ),
+      tabBarColor: '#F39C11',
     },
   },
 };
@@ -55,7 +68,7 @@ const bottomTab = createMaterialBottomTabNavigator(screens, {
   activeColor: '#FFFFFF',
   inactiveColor: '#FFFFFF',
   backBehavior: 'order',
-  barStyle: { backgroundColor: '#FFFFFF' },
+  barStyle: {backgroundColor: '#FFFFFF'},
   shifting: true,
 });
 

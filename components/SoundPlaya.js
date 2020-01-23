@@ -70,19 +70,21 @@ export default class SoundPlaya extends Component {
   renderAnimation = () => {
     console.log('rendering animation');
     if (this.state.pressed) {
+      console.log(this.props.testImages, '333333');
       return (
         <ImageSequence
           images={this.props.testImages}
           framesPerSecond={1}
           startFrameIndex={0}
-          style={{ width: 300, height: 300 }}
+          style={styles.imageSequence}
           loop={false}
         />
       );
     } else {
       return (
-        <Icon icon={PlayOutline} />
-
+        <Image
+          style={styles.pausedImage}
+          source={this.props.testImages[0]}></Image>
       );
     }
   };
@@ -105,6 +107,10 @@ const styles = StyleSheet.create({
   //   height: Dimensions.get('screen').height / 2,
   //   backgroundColor: '#e0e0e0',
   // },
+  imageSequence: {
+    width: Dimensions.get('screen').width - 60,
+    height: 320,
+  },
   playButton: {
     width: 300,
     height: 300,
@@ -114,15 +120,14 @@ const styles = StyleSheet.create({
     maxWidth: Dimensions.get('screen').width,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignSelf: 'center',
     alignItems: 'center',
-    // backgroundColor: 'white'
-
+    height: 320,
   },
   pausedImage: {
     maxWidth: Dimensions.get('screen').width - 60,
-    marginTop: 40,
     height: 320,
+    zIndex: 1,
   },
 });
