@@ -1,5 +1,4 @@
-import {FlatList} from 'react-native-gesture-handler';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -12,6 +11,7 @@ import {
 import SoundPlaya from '../components/SoundPlaya';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
+import FeedHeader from '../components/FeedHeader';
 
 //hardcode sounds
 //hardcode image
@@ -138,60 +138,58 @@ export default class Feed extends Component {
 
   render() {
     return (
-      <ScrollView>
-        {/* {header} */}
-        <View style={styles.header}>
-          <Image
-            source={require('../assets/Images/quicklogo.png')}
-            style={styles.image}
-          />
-          <Text>DISCO VINE</Text>
-        </View>
-        <View style={styles.view1}>
-          <SoundPlaya
-            testImages={this.state.images1}
-            soundsToLoad={this.state.sounds1}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              this.onheartClick1();
-            }}>
-            {this.state.heart1 === 0 && (
-              <Icon color={'#E74C3B'} size={25} name={'md-heart-empty'}></Icon>
-            )}
-            {this.state.heart1 > 0 && (
+      <View>
+        <FeedHeader />
+        <ScrollView>
+          <View style={styles.view1}>
+            <SoundPlaya
+              testImages={this.state.images1}
+              soundsToLoad={this.state.sounds1}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                this.onheartClick1();
+              }}>
+              {this.state.heart1 === 0 && (
+                <Icon
+                  color={'#E74C3B'}
+                  size={25}
+                  name={'md-heart-empty'}></Icon>
+              )}
+              {this.state.heart1 > 0 && (
+                <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
+              )}
+              <Text>{this.state.heart1}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.view2}>
+            <SoundPlaya
+              testImages={this.state.images2}
+              soundsToLoad={this.state.sounds2}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                this.onheartClick2();
+              }}>
               <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
-            )}
-            <Text>{this.state.heart1}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.view2}>
-          <SoundPlaya
-            testImages={this.state.images2}
-            soundsToLoad={this.state.sounds2}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              this.onheartClick2();
-            }}>
-            <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
-            <Text>{this.state.heart2}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.view3}>
-          <SoundPlaya
-            testImages={this.state.images3}
-            soundsToLoad={this.state.sounds3}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              this.onheartClick3();
-            }}>
-            <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
-            <Text>{this.state.heart3}</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+              <Text>{this.state.heart2}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.view3}>
+            <SoundPlaya
+              testImages={this.state.images3}
+              soundsToLoad={this.state.sounds3}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                this.onheartClick3();
+              }}>
+              <Icon color={'#E74C3B'} size={25} name={'md-heart'}></Icon>
+              <Text>{this.state.heart3}</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     );
     //<FlatList data={this.state.videos} />;
   }
