@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
-import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
 
 export default class Home extends Component {
   render() {
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   ButtonContainer: {
     height: 500,
     display: 'flex',
-    flexWrap: 'wrap',
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -65,19 +64,19 @@ const styles = StyleSheet.create({
     height: 70,
     width: 160,
     borderStyle: 'solid',
-    borderWidth: 1.5,
-    borderColor: 'white',
+    borderWidth: 4,
     borderRadius: 12,
-    backgroundColor: 'white',
     justifyContent: 'center',
+    alignSelf: 'center',
     margin: 50,
     alignSelf: 'center',
+    borderColor: 'white'
 
   },
   ButtonText: {
     textAlign: 'center',
     fontFamily: 'sans-serif',
     fontSize: 25,
-    color: 'white',
+    color: 'white'
   },
 });
