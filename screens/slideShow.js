@@ -123,25 +123,29 @@ export default class SlideShow extends Component {
   render() {
     return (
       <ScrollView style={styles.slideShowContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}>
-          <Icon color={'#3b5998'} size={10} name={'md-arrow-round-back'}></Icon>
-          <Text>GO BACK</Text>
-        </TouchableOpacity>
-        <PublishButton
-          style={styles.button}
-          tiles={this.props.navigation.getParam('tiles', 'no tiles')}
-          videoObject={this.state.videoObject}
+        <View style={styles.ButtonContainer}>
+          <TouchableOpacity
+            style={styles.BackButton}
+            onPress={() => {
+              this.props.navigation.goBack();
+            }}>
+            <Icon style={styles.icon} color={'#3b5998'} size={20} name={'md-arrow-round-back'}></Icon>
+            <Text style={styles.text}>GO BACK</Text>
+          </TouchableOpacity>
+          <PublishButton
+            style={styles.ForwardButton}
+            tiles={this.props.navigation.getParam('tiles', 'no tiles')}
+            videoObject={this.state.videoObject}
 
-        />
-        <SoundPlaya
-          style={styles.soundPlayerContainer}
-          testImages={this.state.images}
-          soundsToLoad={this.state.sounds}
-        />
+          />
+        </View>
+        <View style={styles.playerSurround}>
+          <SoundPlaya
+            style={styles.soundPlayerContainer}
+            testImages={this.state.images}
+            soundsToLoad={this.state.sounds}
+          />
+        </View>
       </ScrollView>
     );
   }
@@ -159,22 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 2
-
-
   },
-  ForwardButton: {
-    width: 100,
-    height: 50,
-    backgroundColor: '#22B573',
-    borderStyle: 'solid',
-    borderRadius: 5,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 2
 
-  },
   ButtonContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -199,6 +189,14 @@ const styles = StyleSheet.create({
     margin: 10,
 
   },
+  playerSurround: {
+    flex: 0,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 5,
+    margin: 50,
+  },
 
   SlideShowContainer: {
     flexDirection: 'column',
@@ -206,4 +204,5 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width,
     backgroundColor: "#E0E0E0"
   },
+
 });
