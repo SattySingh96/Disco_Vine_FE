@@ -105,6 +105,7 @@ export default class SlideShow extends Component {
                   uri: url,
                 };
               });
+              console.log(stateImages, 'state images');
               this.setState(
                 {videoObject: videoObject, images: stateImages},
                 () => {
