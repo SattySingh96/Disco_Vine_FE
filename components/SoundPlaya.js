@@ -38,12 +38,9 @@ export default class SoundPlaya extends Component {
   loadMedia = () => {
     const { soundsToLoad } = this.props;
     const { testImages } = this.props;
-    console.log(testImages);
     this.setState({ loadedSounds: soundsToLoad, images: testImages }, () => {
-      this.setState({ playable: true }, () => {
-        console.log('set state');
-      });
-    });
+      this.setState({ playable: true })
+    })
   };
 
   playSound = n => {
@@ -68,9 +65,7 @@ export default class SoundPlaya extends Component {
   };
 
   renderAnimation = () => {
-    console.log('rendering animation');
     if (this.state.pressed) {
-      console.log(this.props.testImages, '333333');
       return (
         <ImageSequence
           images={this.props.testImages}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
+import FeedHeader from '../components/FeedHeader';
 
 export default class Home extends Component {
   render() {
@@ -12,6 +13,7 @@ export default class Home extends Component {
           width: undefined,
           height: undefined,
         }} source={require('/home/mattg95/Documents/proj/Disco_Vine_FE/assets/Images/giphy.gif')} >
+          <FeedHeader />
           <View style={styles.ButtonContainer}>
             <TouchableOpacity
               style={styles.HomeButtons}
@@ -27,15 +29,7 @@ export default class Home extends Component {
               }}>
               <Text style={styles.ButtonText}>VIEW</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { }}
-              style={styles.HomeButtons}>
 
-              <Text style={styles.ButtonText}>SIGN IN</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { }}
-              style={styles.HomeButtons}>
-              <Text style={styles.ButtonText}>Options</Text>
-            </TouchableOpacity>
           </View>
         </ImageBackground >
       </View >
@@ -50,6 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 500,
+    height: Dimensions.get('screen').height,
     width: Dimensions.get('screen').width,
   },
   BacgkroundImage: {
@@ -66,24 +61,26 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   HomeButtons: {
     height: 70,
     width: 160,
+    margin: 50,
     borderStyle: 'solid',
     borderWidth: 4,
     borderRadius: 12,
     justifyContent: 'center',
     alignSelf: 'center',
-    borderColor: 'white'
+    borderColor: 'purple',
+    backgroundColor: '#d8e0f4'
 
   },
   ButtonText: {
     textAlign: 'center',
     fontFamily: 'sans-serif',
     fontSize: 25,
-    color: 'white'
+    color: 'purple'
   },
 });
