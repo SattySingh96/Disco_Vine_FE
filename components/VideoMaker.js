@@ -21,9 +21,9 @@ export default class VideoMaker extends Component {
     return (
       <View
         style={{
-          backgroundColor: 'grey',
+          backgroundColor: 'purple',
           borderWidth: 2,
-          borderColor: 'black',
+          borderColor: 'Purple',
         }}>
         {this.state.hidden && (
           <FlatList

@@ -221,8 +221,7 @@ const styles = StyleSheet.create({
   },
   body: {
     marginBottom: 55,
-    backgroundColor: "#E0E0E0"
-
+    backgroundColor: '#d8e0f4',
   },
   views: {
     backgroundColor: 'purple',

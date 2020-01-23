@@ -197,14 +197,7 @@ export default class Gallery extends Component {
               />
             )}
           />
-          <Text
-            style={{
-              color: 'white',
-              alignSelf: 'center',
-              justifyContent: 'flex-start',
-            }}>
-            Hello
-          </Text>
+
           <TouchableOpacity
             style={styles.createVidBtn}
             title={'create video'}
@@ -238,12 +231,15 @@ const styles = StyleSheet.create({
     width: 150,
     alignSelf: 'center',
     position: 'relative',
-    left: 90,
-    marginBottom: 5,
+    left: 110,
+    marginBottom: 8,
   },
   VideoMaker: {},
   buttonStyle: {
-    margin: Dimensions.get('screen').width / 40,
+    margin: Dimensions.get('screen').width / 43,
+    borderWidth: 2,
+    borderRadius: 13,
+    borderColor: '#ffb56b',
   },
   scrollView: {
     backgroundColor: '#FFFFFF',
@@ -266,7 +262,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flexDirection: 'column',
-    backgroundColor: '#01579b',
+    backgroundColor: '#d8e0f4',
     justifyContent: 'center',
     borderColor: 'black',
     borderWidth: 1,
