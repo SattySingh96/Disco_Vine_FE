@@ -79,44 +79,49 @@ export default class SoundPlaya extends Component {
         />
       );
     } else {
-      return <Image source={this.props.testImages[0]}></Image>;
+      return (
+        <Image
+          style={styles.pausedImage}
+          source={this.props.testImages[0]}></Image>
+      );
     }
   };
 
   render() {
     return (
-      <View style={styles.screenBody}>
-        <View style={styles.opacityContainer}>
-          <TouchableOpacity
-            onPress={this.clickHandler}
-            style={styles.playButton}>
-            {this.renderAnimation()}
-          </TouchableOpacity>
-        </View>
+      <View style={styles.opacityContainer}>
+        <TouchableOpacity onPress={this.clickHandler} style={styles.playButton}>
+          {this.renderAnimation()}
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  screenBody: {
-    width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height,
-    backgroundColor: '#e0e0e0',
-  },
+  // screenBody: {
+  //   width: (Dimensions.get('screen').width * 4) / 5,
+  //   height: Dimensions.get('screen').height / 2,
+  //   backgroundColor: '#e0e0e0',
+  // },
   playButton: {
     width: 300,
     height: 300,
   },
   opacityContainer: {
-    position: 'absolute',
+    //position: 'absolute',
+    maxWidth: Dimensions.get('screen').width - 60,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    height: Dimensions.get('screen').height,
-    width: Dimensions.get('screen').width,
-    backgroundColor: '#ffffff',
+    //backgroundColor: '#ffffff',
+  },
+  pausedImage: {
+    maxWidth: Dimensions.get('screen').width - 60,
+    // marginTop: 40,
+    height: 320,
+    zIndex: 1,
   },
 });
