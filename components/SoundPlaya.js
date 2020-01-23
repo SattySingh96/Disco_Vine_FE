@@ -44,6 +44,14 @@ export default class SoundPlaya extends Component {
     });
   };
 
+  playSound = n => {
+    if (n < this.state.loadedSounds.length) {
+      this.state.loadedSounds[n].play(() => {
+        this.playSound(n + 1);
+      });
+    } else this.setState({pressed: false});
+  };
+
   clickHandler = () => {
     this.setState(
       currentState => {
@@ -55,14 +63,6 @@ export default class SoundPlaya extends Component {
         }
       },
     );
-  };
-
-  playSound = n => {
-    if (n < this.state.loadedSounds.length) {
-      this.state.loadedSounds[n].play(() => {
-        this.playSound(n + 1);
-      });
-    } else this.setState({pressed: false});
   };
 
   renderAnimation = () => {
