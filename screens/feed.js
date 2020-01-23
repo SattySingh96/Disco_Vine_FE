@@ -215,7 +215,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'purple',
     position: 'relative',
   },
-
+  body: {
+    marginBottom: 55,
+  },
   views: {
     backgroundColor: 'purple',
     color: 'white',
@@ -253,8 +255,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderColor: 'black',
-    borderWidth: 5,
   },
   image: {
     height: 20,
