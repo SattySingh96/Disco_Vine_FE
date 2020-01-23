@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import Sound from 'react-native-sound';
 import ImageSequence from 'react-native-image-sequence';
-import { Icon } from '@iconify/react';
-import PlayOutline from '@iconify/icons-ion/play-outline';
+
 
 Sound.setCategory('Playback');
 
@@ -79,13 +78,9 @@ export default class SoundPlaya extends Component {
           loop={false}
         />
       );
-    } else {
-      return (
-        <Icon icon={PlayOutline} />
-
-      );
     }
-  };
+  }
+
 
   render() {
     return (
@@ -98,6 +93,7 @@ export default class SoundPlaya extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   // screenBody: {

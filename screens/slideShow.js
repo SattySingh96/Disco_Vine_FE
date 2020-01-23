@@ -10,7 +10,7 @@ import {
 import SoundPlaya from '../components/SoundPlaya';
 import { RNS3 } from 'react-native-aws3';
 import { accessKey, secretKey } from '../AWSconfig';
-import { Icon, } from '@iconify/react';
+import { Icon } from '@iconify/react';
 
 
 
