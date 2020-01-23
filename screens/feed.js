@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   },
   player: {
     maxWidth: Dimensions.get('screen').width - 60,
-    borderColor: 'black',
+    borderColor: 'pink',
     borderWidth: 5,
     zIndex: 3,
     height: 350,
@@ -259,8 +259,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  image: {
-    height: 20,
   },
 });

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Sound from 'react-native-sound';
 import ImageSequence from 'react-native-image-sequence';
+import ImageOverlay from 'react-native-image-overlay';
 
 Sound.setCategory('Playback');
 
@@ -80,9 +81,18 @@ export default class SoundPlaya extends Component {
       );
     } else {
       return (
-        <Image
-          style={styles.pausedImage}
-          source={this.props.testImages[0]}></Image>
+        <View style={styles.pausedImage}>
+          <ImageOverlay
+            overlayColor="white"
+            contentPosition="center"
+            overlayAlpha={0.4}
+            height={320}
+            source={this.props.testImages[0]}>
+            <Image
+              style={styles.playButton}
+              source={require('../assets/Images/icon.png')}></Image>
+          </ImageOverlay>
+        </View>
       );
     }
   };
@@ -90,7 +100,7 @@ export default class SoundPlaya extends Component {
   render() {
     return (
       <View style={styles.opacityContainer}>
-        <TouchableOpacity onPress={this.clickHandler} style={styles.playButton}>
+        <TouchableOpacity onPress={this.clickHandler} style={styles.playVideo}>
           {this.renderAnimation()}
         </TouchableOpacity>
       </View>
@@ -107,24 +117,48 @@ const styles = StyleSheet.create({
   imageSequence: {
     width: Dimensions.get('screen').width - 60,
     height: 320,
+    borderColor: 'black',
+    borderWidth: 5,
   },
   playButton: {
-    width: 300,
-    height: 300,
+    width: Dimensions.get('screen').width - 60,
+    height: 100,
+    width: 100,
+    //opacity: 0.75,
   },
   opacityContainer: {
     //position: 'absolute',
-    maxWidth: Dimensions.get('screen').width - 60,
+    width: Dimensions.get('screen').width - 60,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignSelf: 'center',
     alignItems: 'center',
     height: 320,
+    borderColor: 'blue',
+    borderWidth: 5,
   },
   pausedImage: {
-    maxWidth: Dimensions.get('screen').width - 60,
+    // maxWidth: Dimensions.get('screen').width - 60,
     height: 320,
-    zIndex: 1,
+    zIndex: 5,
+    borderColor: 'white',
+    borderWidth: 5,
+    alignItems: 'center',
+    // marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 30,
+    // paddingRight: 30,
+  },
+  playVideo: {
+    width: Dimensions.get('screen').width - 60,
+    height: 320,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    //alignSelf: 'center',
+    alignItems: 'center',
+    // borderColor: 'yellow',
+    // borderWidth: 5,
   },
 });
