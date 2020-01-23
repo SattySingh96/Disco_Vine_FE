@@ -153,7 +153,11 @@ export default class Feed extends Component {
                   name={'md-heart-empty'}></Icon>
               )}
               {this.state.heart1 > 0 && (
-                <Icon color={'white'} size={35} name={'md-heart'}></Icon>
+                <Icon
+                  style={styles.heart}
+                  color={'white'}
+                  size={35}
+                  name={'md-heart'}></Icon>
               )}
               <Text style={styles.text}>{this.state.heart1}</Text>
             </TouchableOpacity>
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
   views: {
     backgroundColor: 'purple',
     color: 'white',
-    height: 440,
+    height: 420,
     margin: 30,
     marginBottom: 15,
     marginTop: 15,
