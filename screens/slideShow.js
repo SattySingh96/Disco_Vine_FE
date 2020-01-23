@@ -189,14 +189,14 @@ const styles = StyleSheet.create({
     margin: 10,
 
   },
-  playerSurround: {
-    flex: 0,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderColor: 'black',
-    borderRadius: 5,
-    margin: 50,
-  },
+  // playerSurround: {
+  //   flex: 0,
+  //   borderStyle: 'solid',
+  //   borderWidth: 2,
+  //   borderColor: 'black',
+  //   borderRadius: 5,
+  //   margin: 50,
+  // },
 
   SlideShowContainer: {
     flexDirection: 'column',

@@ -66,11 +66,12 @@ export default class SoundPlaya extends Component {
 
   renderAnimation = () => {
     if (this.state.pressed) {
+      const { testImages } = this.props
       return (
         <ImageSequence
-          images={this.props.testImages}
+          images={testImages}
           framesPerSecond={1}
-          startFrameIndex={0}
+          startFrameIndex={Math.round(testImages.length / 2)}
           style={styles.imageSequence}
           loop={false}
         />
