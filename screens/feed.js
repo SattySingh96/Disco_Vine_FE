@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component, Fragment} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -94,6 +94,34 @@ export default class Feed extends Component {
         'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/reverse_chime.mp3',
       ),
     ],
+    hardcodedImages2: [
+      require('../assets/Images/20200124_102138.jpg'),
+      require('../assets/Images/20200124_102159.jpg'),
+      require('../assets/Images/20200124_102207.jpg'),
+      require('../assets/Images/20200124_102144.jpg'),
+      require('../assets/Images/20200124_102152.jpg'),
+      require('../assets/Images/20200124_102156.jpg'),
+    ],
+    hardcodedSounds2: [
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/wobble.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/reverse_chime.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/splash.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/rattle.mp3',
+      ),
+    ],
     heart1: 0,
     heart2: 5,
     heart3: 3,
@@ -109,19 +137,19 @@ export default class Feed extends Component {
 
   onheartClick1 = () => {
     this.setState(currentState => {
-      return { heart1: currentState.heart1 + 1 };
+      return {heart1: currentState.heart1 + 1};
     });
   };
 
   onheartClick2 = () => {
     this.setState(currentState => {
-      return { heart2: currentState.heart2 + 1 };
+      return {heart2: currentState.heart2 + 1};
     });
   };
 
   onheartClick3 = () => {
     this.setState(currentState => {
-      return { heart3: currentState.heart3 + 1 };
+      return {heart3: currentState.heart3 + 1};
     });
   };
 
@@ -130,6 +158,38 @@ export default class Feed extends Component {
       <View>
         <FeedHeader />
         <ScrollView style={styles.body}>
+          <View style={styles.views}>
+            <View style={styles.vineHeader}>
+              <Text style={styles.text}>Funky Town</Text>
+              <Text style={styles.text}>Jan 24</Text>
+            </View>
+            <SoundPlaya
+              styles={styles.player}
+              testImages={this.state.hardcodedImages2}
+              soundsToLoad={this.state.hardcodedSounds2}
+            />
+            <TouchableOpacity
+              style={styles.hearts}
+              onPress={() => {
+                this.onheartClick1();
+              }}>
+              {this.state.heart1 === 0 && (
+                <Icon
+                  style={styles.heart}
+                  color={'white'}
+                  size={35}
+                  name={'md-heart-empty'}></Icon>
+              )}
+              {this.state.heart1 > 0 && (
+                <Icon
+                  style={styles.heart}
+                  color={'white'}
+                  size={35}
+                  name={'md-heart'}></Icon>
+              )}
+              <Text style={styles.text}>{this.state.heart1}</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.views}>
             <View style={styles.vineHeader}>
               <Text style={styles.text}>Dancing Queen</Text>
@@ -164,7 +224,7 @@ export default class Feed extends Component {
           </View>
           <View style={styles.views}>
             <View style={styles.vineHeader}>
-              <Text style={styles.text}>Funky Town</Text>
+              <Text style={styles.text}>Boogie Woogie</Text>
               <Text style={styles.text}>Jan 22</Text>
             </View>
             <SoundPlaya

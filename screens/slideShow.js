@@ -188,8 +188,8 @@ export default class SlideShow extends Component {
         <View style={styles.playerSurround}>
           <SoundPlaya
             style={styles.soundPlayerContainer}
-            testImages={this.state.hardcodedImages1}
-            soundsToLoad={this.state.hardcodedSounds1}
+            testImages={this.state.hardcodedImages2}
+            soundsToLoad={this.state.hardcodedSounds2}
           />
         </View>
       </ScrollView>

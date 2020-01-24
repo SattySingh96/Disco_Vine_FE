@@ -15,7 +15,8 @@ export default class ImageThumbnail extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          videoObject,
+          video: 'my video',
+          // videoObject,
         }),
       },
     ).then(fetchedResponse => {
