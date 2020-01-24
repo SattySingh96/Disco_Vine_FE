@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class ImageThumbnail extends Component {
@@ -24,9 +24,15 @@ export default class ImageThumbnail extends Component {
   };
   render() {
     return (
-      <TouchableOpacity style={styles.publishButton} onPress={this.makeVideoShareable}>
+      <TouchableOpacity
+        style={styles.publishButton}
+        onPress={this.makeVideoShareable}>
         <Text style={styles.text}>PUBLISH</Text>
-        <Icon style={styles.icon} color={'#3b5998'} size={20} name={'md-cloud-upload'}></Icon>
+        <Icon
+          style={styles.icon}
+          color={'#3b5998'}
+          size={20}
+          name={'md-cloud-upload'}></Icon>
       </TouchableOpacity>
     );
   }
@@ -35,7 +41,7 @@ const styles = StyleSheet.create({
   publishButton: {
     width: 100,
     height: 50,
-    backgroundColor: '#32CD32',
+    backgroundColor: 'purple',
     borderStyle: 'solid',
     borderRadius: 5,
     display: 'flex',
@@ -50,6 +56,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    margin: 5
-  }
-})
+    margin: 5,
+  },
+});

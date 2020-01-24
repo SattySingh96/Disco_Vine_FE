@@ -129,7 +129,7 @@ export default class SlideShow extends Component {
             }}>
             <Icon
               style={styles.icon}
-              color={'#3b5998'}
+              color={'white'}
               size={20}
               name={'md-arrow-round-back'}></Icon>
             <Text style={styles.text}>GO BACK</Text>
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
   BackButton: {
     width: 100,
     height: 50,
-    backgroundColor: 'red',
+    backgroundColor: 'purple',
+    color: 'white',
     borderStyle: 'solid',
     borderRadius: 5,
     display: 'flex',
@@ -171,14 +172,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
-    backgroundColor: '#404040',
+    backgroundColor: 'purple',
   },
-  Text: {
+  text: {
     color: 'white',
-    fontSize: 18,
+    // fontSize: 18,
     margin: 5,
   },
-  Icons: {
+  icon: {
+    margin: 10,
     color: 'white',
   },
   SoundPlayerContainer: {
