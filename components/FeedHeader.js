@@ -6,6 +6,13 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class FeedHeader extends Component {
   state = {};
+
+  changeUser = () => {
+    console.log('changing user');
+    console.log(this.props);
+    this.props.updateUser();
+  };
+
   render() {
     return (
       <View style={styles.header}>
@@ -16,6 +23,9 @@ export default class FeedHeader extends Component {
         <Text style={styles.title}>DISCO VINE</Text>
         <TouchableOpacity style={styles.options}>
           <Icon2
+            onPress={() => {
+              this.changeUser();
+            }}
             name={'user-circle-o'}
             size={25}
             color={'white'}

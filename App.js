@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Navigator from './routes/screenStack';
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 export default class App extends Component {
@@ -17,6 +17,6 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   Navigator: {
-    flex: 1
-  }
-})
+    flex: 1,
+  },
+});

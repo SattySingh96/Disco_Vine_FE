@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component, Fragment} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,11 +7,13 @@ import {
   Image,
   View,
   Dimensions,
+  Picker,
 } from 'react-native';
 import SoundPlaya from '../components/SoundPlaya';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
 import FeedHeader from '../components/FeedHeader';
+import Modal, {ModalContent} from 'react-native-modals';
 
 const soundLinks = {
   'T-Pose': 'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
@@ -30,6 +32,8 @@ const soundLinks = {
 export default class Feed extends Component {
   state = {
     videos: [],
+    user: 'steeltitan',
+    showLogin: false,
     images1: [
       require('../assets/Images/IMG_20200110_124928834.jpg'),
       require('../assets/Images/IMG_20200110_124946021.jpg'),
@@ -107,28 +111,55 @@ export default class Feed extends Component {
   //     });
   //   }
 
+  updateUser = () => {
+    'showing login';
+    this.setState({showLogin: true});
+  };
+
   onheartClick1 = () => {
     this.setState(currentState => {
-      return { heart1: currentState.heart1 + 1 };
+      return {heart1: currentState.heart1 + 1};
     });
   };
 
   onheartClick2 = () => {
     this.setState(currentState => {
-      return { heart2: currentState.heart2 + 1 };
+      return {heart2: currentState.heart2 + 1};
     });
   };
 
   onheartClick3 = () => {
     this.setState(currentState => {
-      return { heart3: currentState.heart3 + 1 };
+      return {heart3: currentState.heart3 + 1};
     });
   };
 
   render() {
     return (
       <View>
-        <FeedHeader />
+        <FeedHeader
+          updateUser={() => {
+            this.updateUser.bind(this);
+          }}
+        />
+        <Modal
+          visible={this.state.showLogin}
+          onTouchOutside={() => {
+            this.setState({showLogin: false});
+          }}>
+          <ModalContent>
+            <Picker
+              selectedValue={this.state.user}
+              style={{height: 50, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({user: itemValue})
+              }>
+              <Picker.Item label="JJ" value="JJ" />
+              <Picker.Item label="lollydolly" value="lollydolly" />
+              <Picker.Item label="steeltitan" value="steeltitan" />
+            </Picker>
+          </ModalContent>
+        </Modal>
         <ScrollView style={styles.body}>
           <View style={styles.views}>
             <View style={styles.vineHeader}>
@@ -160,6 +191,7 @@ export default class Feed extends Component {
                   name={'md-heart'}></Icon>
               )}
               <Text style={styles.text}>{this.state.heart1}</Text>
+              <Text style={styles.user}>JJ</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.views}>
@@ -183,6 +215,7 @@ export default class Feed extends Component {
                 size={35}
                 name={'md-heart'}></Icon>
               <Text style={styles.text}>{this.state.heart2}</Text>
+              <Text style={styles.user}>JJ</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.views}>
@@ -206,6 +239,7 @@ export default class Feed extends Component {
                 size={35}
                 name={'md-heart'}></Icon>
               <Text style={styles.text}>{this.state.heart3}</Text>
+              <Text style={styles.user}>JJ</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -247,6 +281,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     margin: 10,
+  },
+  user: {
+    marginLeft: 'auto',
   },
   player: {
     maxWidth: Dimensions.get('screen').width - 60,
