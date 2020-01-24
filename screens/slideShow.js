@@ -12,9 +12,54 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SoundPlaya from '../components/SoundPlaya';
 import {RNS3} from 'react-native-aws3';
 import {accessKey, secretKey} from '../AWSconfig';
+import Sound from 'react-native-sound';
 
 export default class SlideShow extends Component {
   state = {
+    hardcodedImages1: [
+      require('../assets/Images/20200124_102138.jpg'),
+      require('../assets/Images/20200124_102159.jpg'),
+      require('../assets/Images/20200124_102207.jpg'),
+    ],
+    hardcodedImages2: [
+      require('../assets/Images/20200124_102138.jpg'),
+      require('../assets/Images/20200124_102159.jpg'),
+      require('../assets/Images/20200124_102207.jpg'),
+      require('../assets/Images/20200124_102144.jpg'),
+      require('../assets/Images/20200124_102152.jpg'),
+      require('../assets/Images/20200124_102156.jpg'),
+    ],
+    hardcodedSounds1: [
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/wobble.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/reverse_chime.mp3',
+      ),
+    ],
+    hardcodedSounds2: [
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/boing.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/wobble.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/reverse_chime.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/squeak.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/splash.mp3',
+      ),
+      new Sound(
+        'https://eu-sounds-bucket.s3.eu-west-2.amazonaws.com/rattle.mp3',
+      ),
+    ],
     images: [],
     videoObject: {},
     sounds: [],
@@ -143,8 +188,8 @@ export default class SlideShow extends Component {
         <View style={styles.playerSurround}>
           <SoundPlaya
             style={styles.soundPlayerContainer}
-            testImages={this.state.images}
-            soundsToLoad={this.state.sounds}
+            testImages={this.state.hardcodedImages1}
+            soundsToLoad={this.state.hardcodedSounds1}
           />
         </View>
       </ScrollView>
